@@ -78,6 +78,11 @@ export class Account {
       await this.getBalances();
       await this.getRewards();
       await this.getStaked();
+      return {
+        balances: this.balances,
+        rewards: this.rewards,
+        staked: this.staked
+      }
     } catch (error) {
       console.log(error)
       return error;
