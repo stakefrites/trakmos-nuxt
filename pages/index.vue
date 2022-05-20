@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia';
 import {ref, onBeforeMount} from "vue"
 import {useStore} from "~/store/store"
 const loginType = ref(null)
-const key = ref('')
+const key = ref('6287252e3153aaa43702f0cb')
 const errorMessage = ref(null);
 const router = useRouter();
 const store = useStore();
@@ -28,9 +28,6 @@ const signIn = () => {
 const login = async () => {
     errorMessage.value = null
     const {data, refresh} = await useAsyncData("loginUser",  () => $fetch(`/api/user/${key.value}`))
-    setInterval(() => {
-        refresh()
-    }, 10)
     if (data.value.user) {
         user.value = data.value.user
         router.push("/dashboard")
