@@ -8,12 +8,13 @@ const errorMessage = ref(null);
 const router = useRouter();
 const store = useStore();
 
+
 const {id, user} = storeToRefs(store);
 
 onBeforeMount(()=> {
-
-    const user = localStorage.getItem("user");
-
+ if (user.value) {
+        router.push("/dashboard")
+    } 
 })
 
 
