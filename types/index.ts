@@ -1,24 +1,64 @@
+export enum Currency { 
+  USD = "usd",
+  EUR = "eur",
+  CAD = "cad",
+}
+
 interface Coin {
   denom: string;
   amount: string;
+  ibcDenom?: string;
 }
 
-interface PortofolioItem { 
-    networkName: string;
-    coin: Coin;
+export interface Delegation {
+  delegatorAddress: string;
+  validatorAddress: string;
+  shares: string;
 }
 
-interface User { 
+export interface DelegationResponse { 
+  delegation: Delegation,
+  balance: Coin,
+}
+
+
+
+interface Balance { 
+  address: string;
+  network: string;
+  balances: Coin[];
+}
+
+interface Staked { 
+  address: string;
+  network: string;
+  staked: DelegationResponse[];
+}
+
+export interface User { 
     seedAddress: string;
-    currency: string;
+    currency: Currency;
     networks: string[];
     keys: string[];
     created: Date;
     lastFetch: Date;
-    portfolio: PortofolioItem[];
+    portfolio: Portfolio;
     hash?: string;
 }
 
-interface Network { 
-  
+interface Wallet { 
+  name: String;
+  seedAddress: String;
+  networks: String[];
+  staked: Staked[];
+  balances: Balance[];
+  rewards: Balance[];
 }
+
+
+interface Portfolio { 
+  name: string;
+  wallets: Wallet[];
+
+}
+
