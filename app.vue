@@ -1,3 +1,22 @@
+<script setup>
+import { storeToRefs } from 'pinia';
+import {useStore} from "~/store/store"
+const store = useStore();
+
+const {id, user} = storeToRefs(store);
+
+
+
+onBeforeMount(()=> {
+
+    const userItem = localStorage.getItem("user");
+    user.value = JSON.parse(userItem)
+
+})
+
+</script>
+
+
 <template>
   <div>
     <router-view></router-view>
