@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { User, Currency} from "@/types"
 
 
 const userSchema = new mongoose.Schema<User>({
@@ -6,7 +7,7 @@ const userSchema = new mongoose.Schema<User>({
   networks: {type: [String], required:  true},
   keys: { type: [String], required: true },
   created: { type: Date, default: Date.now },
-  currency: { type: String, default: "usd" },
+  currency: { type: String, default: Currency.USD },
   lastFetch: { type: Date },
   portfolio: Array,
   hash: { type: String }
