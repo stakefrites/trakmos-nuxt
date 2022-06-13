@@ -25,9 +25,10 @@ onBeforeMount(async () => {
     account.value = data.value.account
 })
 
-onMounted(async ()=> {
-    
-})
+onMounted(async () => {
+
+});
+
 
 </script>
 
@@ -38,12 +39,10 @@ onMounted(async ()=> {
                 <div class="text-h2">Dashboard</div>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col sm="10" md="8">
+        <v-row v-if="account.value">
+        <v-col>
                 <div class="text-h3">Account</div>
-            </v-col>
-        </v-row>
-        <v-row v-if="account.value.accounts">
+        </v-col>
             <v-card>
                 <v-col v-for="acc in account.value.accounts">
                     <div class="text-h4">{{acc.name}}</div>
@@ -52,7 +51,7 @@ onMounted(async ()=> {
                 </v-col>
             </v-card>
         </v-row>
-        <v-row v-if="account.value.tokens">
+        <v-row v-if="account.value">
             <v-col>
                 <div class="text-h3">Tokens</div>
                 <v-table>
