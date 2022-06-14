@@ -38,10 +38,6 @@ const isAlreadySet = () => {
     }
 }
 
-watch(accounts.currentKey, (newVal) => {
-  console.log(`x is ${newVal}`)
-})
-
 const setCurrentKey = async () => { 
     await window.keplr.enable(EVMOS_CHAIN_ID);
     const key = await window.keplr.getKey(COSMOS_CHAIN_ID);
@@ -134,93 +130,112 @@ const createAccount = async () => {
 </script>
 
 <template>
-  <NuxtLayout name="default">
-    <v-row>
-        <v-col sm="10" md="8">
+  <NuxtLayout name="home">
+    <v-row class="d-flex justify-center">
+        <v-col sm="8" md="6" lg="4">
             <div class="text-h2">Onboarding</div>
         </v-col>
     </v-row>
     <div  v-if="page == 1">
-        <v-row>
-            <v-col>
+        <v-row class="d-flex justify-center">
+            <v-col sm="8" md="6" lg="4">
                 <div class="text-h3">Configure your accounts</div>
                 <div class="text-body-2">First, we will configure your different accounts. </div>
                 <div class="text-body-2">To do that, we will need to get an address from Keplr and your evmos address from keplr.</div>
                 <v-divider></v-divider>
                 <div class="mt-2 text-h5">Your Keplr is currently set on <strong>{{accounts.currentKey}}</strong></div>
                 {{alreadySet === -1 ? "" : `Make sure you change your Keplr account before setting a new account. This key is used for account #${alreadySet + 1}`}}
-
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
-                <v-card>
-                    <div v-for="(account,i) in accounts.accounts">
-                        <v-card-title>
-                            <div class="text-h4">Account {{i+ 1}}</div>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="account.name"
-                                label="Name this account"
-                                type="text"
-                                required
-                                color="primary">
-                            </v-text-field>
-                            <v-text-field
-                                v-if="account.bech32Address"
-                                v-model="account.bech32Address"
-                                label="Cosmos Address"
-                                disabled
-                                type="text"
-                                required
-                                color="primary">
-                            </v-text-field>
-                            <v-btn v-else @click="getBech32Address(i)">Get Bech32 Address</v-btn>
-                            <v-text-field
-                                v-if="account.evmosAddress"
-                                v-model="account.evmosAddress"
-                                label="Evmos Address"
-                                disabled
-                                type="text"
-                                required
-                                color="primary">
-                            </v-text-field>
-                            <v-btn v-else @click="getEvmosAddress(i)">Get Evmos Address</v-btn>
-                            
-                        </v-card-text>
-                    </div>
-                        <v-card-actions>
-                        <v-btn @click="addOne">Add another account</v-btn>
-                        <v-btn @click="page2">Next</v-btn>
-                    </v-card-actions>
-                </v-card>
+        <v-row class="d-flex justify-center">
+            <v-col sm="8" md="6" lg="6">
+                <MyCard hasActions>
+                    <template v-slot:content>
+                        <div v-for="(account,i) in accounts.accounts">
+                            <v-card-title>
+                                <div class="text-h4 card-heading">Account {{i+ 1}}</div>
+                            </v-card-title>
+                            <v-card-text>
+                                <v-text-field
+                                    v-model="account.name"
+                                    label="Name this account"
+                                    type="text"
+                                    required
+                                    bg-color="#76EFD3"
+                                    >
+                                </v-text-field>
+                                <v-text-field
+                                    v-if="account.bech32Address"
+                                    v-model="account.bech32Address"
+                                    label="Cosmos Address"
+                                    disabled
+                                    type="text"
+                                    required
+                                    bg-color="#76EFD3"
+                                    >
+                                </v-text-field>
+                                <v-btn class="myPrimaryButton" v-else @click="getBech32Address(i)">Get Bech32 Address</v-btn>
+                                <v-text-field
+                                    v-if="account.evmosAddress"
+                                    v-model="account.evmosAddress"
+                                    label="Evmos Address"
+                                    disabled
+                                    type="text"
+                                    required
+                                    bg-color="#76EFD3"
+                                    >
+                                </v-text-field>
+                                <v-btn class="myPrimaryButton" v-else @click="getEvmosAddress(i)">Get Evmos Address</v-btn>
+                            </v-card-text>
+                        </div>
+                    </template>
+                    <template v-slot:actions>
+                        <v-btn class="myPrimaryButton" @click="addOne">Add another account</v-btn>
+                        <v-btn class="mySecondaryButton" @click="page2">Next</v-btn>
+                    </template>
+                </MyCard>
             </v-col>
         </v-row>
     </div>
     <div v-if="page === 2">
-    <v-row>
-        <v-col>
-             <v-card>
-                    <div>
-                        <v-card-title>
-                            <div class="text-h4">Select your currency</div>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-radio-group v-model="accounts.currency">
-                                <v-radio v-for="item in items"
-                                    :label="item"
-                                    :value="item"
-                                ></v-radio>
-                            </v-radio-group>
-                        </v-card-text>
-                    </div>
-                        <v-card-actions>
-                        <v-btn v-if="accounts.currency !== ''" @click="createAccount">Finish</v-btn>
-                    </v-card-actions>
-                </v-card>
-        </v-col>
-    </v-row>    
+        <v-row class="d-flex justify-center">
+            <v-col sm="8" md="6" lg="4">
+                <MyCard title="Select your currency" hasActions>
+                    <template v-slot:content>
+                        <v-radio-group v-model="accounts.currency">
+                            <v-radio class="white--text"  v-for="item in items"
+                                :label="item"
+                                :value="item"
+                            ></v-radio>
+                        </v-radio-group>
+                    </template>
+                    <template v-slot:actions>
+                        <v-btn class="myPrimaryButton" v-if="accounts.currency !== ''" @click="createAccount">Finish</v-btn>
+                    </template>
+                </MyCard>
+            </v-col>
+        </v-row>    
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+
+.myPrimaryButton {
+    background: #070C38!important;
+    border: 1px solid #76EFD3!important;
+    border-radius: 6px;
+    color: #76EFD3;
+}
+.mySecondaryButton {
+    background: #76EFD3!important;
+    border: 1px solid #76EFD3!important;
+    border-radius: 6px;
+    color: #070C38;
+}
+
+.white--text >>> label {
+    color: white;
+}
+
+</style>

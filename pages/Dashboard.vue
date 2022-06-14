@@ -33,7 +33,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <NuxtLayout name="default">
+    <NuxtLayout name="home">
         <v-row>
             <v-col sm="10" md="8">
                 <div class="text-h2">Dashboard</div>
@@ -72,3 +72,13 @@ onMounted(async () => {
         </v-row>
 </NuxtLayout>
 </template>
+
+<style scoped>
+.text-body-1 {
+    color: black;
+}
+
+td, .text-h4 {
+    color: black;
+}
+</style>
