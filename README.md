@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e73aaa7c-4693-44f1-814c-ce844314ba16/deploy-status)](https://app.netlify.com/sites/dynamic-twilight-cbb18b/deploys)
+
 # [Trakmos](https://trakmos.app)
 
 Trakmos allows cosmos magic tokens holder to view all their balances via a simple UI that either connects to one Keplr account of a simple text input.
