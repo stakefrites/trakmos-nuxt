@@ -7,6 +7,14 @@ export default defineNuxtConfig({
     "mdi/css/materialdesignicons.min.css",
     ,
   ],
+  meta: {
+    viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
+    titleTemplate: "%s - Trakmos",
+    meta: [
+
+    ]
+
+  },
   buildModules: ["@pinia/nuxt"],
   build: {
     transpile: ["vuetify"],
