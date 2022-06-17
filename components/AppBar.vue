@@ -21,7 +21,7 @@ const logOut = () => {
     <v-spacer></v-spacer>
     <div class="d-flex" v-if="router.currentRoute.value.path === '/'">
         <div @click="router.push('/login')" class="item">App</div>
-        <div class="item mr-10">The Team</div>
+        <div class="item mr-10" @click="router.push('/prices')">Tokens</div>
     </div>
       <v-icon class="mr-10" color="white" @click="logOut">mdi-logout</v-icon>
 </v-app-bar>
