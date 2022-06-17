@@ -6,7 +6,8 @@ export const useStore = defineStore({
   state: () => ({
     id: null,
     user: {},
-    tokens: []
+    tokens: [],
+    isTokensLoading: false
   }),
   actions: {},
   getters: {}
