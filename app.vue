@@ -3,16 +3,22 @@ import { storeToRefs } from 'pinia';
 import {useStore} from "~/store/store"
 const store = useStore();
 
-const {id, user} = storeToRefs(store);
+
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+
+const {id, user,tokens} = storeToRefs(store);
 
 
 
-onBeforeMount(()=> {
+onBeforeMount(async ()=> {
+  const { data } = await useFetch(`/tokens`, {
+    method: "GET",
+    baseURL: BASE_URL
+  });
 
-    const userItem = localStorage.getItem("user");
-    user.value = JSON.parse(userItem)
-
+  tokens.value = data.value
 })
+
 
 </script>
 

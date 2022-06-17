@@ -1,28 +1,24 @@
-import { defineNuxtConfig } from "nuxt";
+import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  css: [
-    "vuetify/lib/styles/main.sass",
-    "mdi/css/materialdesignicons.min.css",
-    ,
-  ],
+  css: ['vuetify/lib/styles/main.sass', 'mdi/css/materialdesignicons.min.css'],
+  typescript: {
+    typeCheck: true,
+  },
   meta: {
-    viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-    titleTemplate: "%s - Trakmos",
-    meta: [
-
-    ]
-
+    viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+    titleTemplate: '%s - Trakmos',
+    meta: []
   },
-  buildModules: ["@pinia/nuxt"],
+  buildModules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
   build: {
-    transpile: ["vuetify"],
+    transpile: ['vuetify']
   },
-  target: "server",
+  target: 'server',
   vite: {
     define: {
-      "process.env.DEBUG": "false",
-    },
-  },
-});
+      'process.env.DEBUG': 'false'
+    }
+  }
+})

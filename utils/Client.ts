@@ -38,8 +38,6 @@ const makeClient = async (rpcUrl) => {
   );
 };
 
-
-
 export class Account {
   address: string;
   activated: string[];
@@ -50,22 +48,22 @@ export class Account {
   balances: any[];
   constructor(address: string, activated: string[]) {
     this.address = address;
-    this.activated = activated
+    this.activated = activated;
   }
 
   init = async () => {
     try {
       const networks = await mapAsync(this.activated, async (network) => {
         const chains = await directory.getChains();
-        const chain = chains[network]
+        const chain = chains[network];
         const chainData = await directory.getChainData(network);
         return {
           ...chain,
           data: chainData,
           rpc: directory.rpcUrl(network),
-          rest: directory.restUrl(network)
-        }
-      })
+          rest: directory.restUrl(network),
+        };
+      });
       this.networks = networks;
       await this.getAddresses();
     } catch (error) {
@@ -73,7 +71,7 @@ export class Account {
     }
   };
 
-  getPortfolio = async () => { 
+  getPortfolio = async () => {
     try {
       await this.getBalances();
       await this.getRewards();
@@ -81,13 +79,13 @@ export class Account {
       return {
         balances: this.balances,
         rewards: this.rewards,
-        staked: this.staked
-      }
+        staked: this.staked,
+      };
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
-  }
+  };
 
   getAddresses = async () => {
     const decoded = fromBech32(this.address);
@@ -97,16 +95,15 @@ export class Account {
         return {
           address,
           network: network.name,
-        }
+        };
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     });
     this.addresses = addresses;
-
   };
 
-    getIbcDenoms = async (coins, client) => {
+  getIbcDenoms = async (coins, client) => {
     return await mapAsync(coins, async (c) => {
       if (c.denom.includes("ibc")) {
         const hash = c.denom.split("/")[1];
@@ -121,7 +118,6 @@ export class Account {
       }
     });
   };
-
 
   getBalances = async () => {
     const balances = await mapAsync(this.addresses, async (a) => {
@@ -140,13 +136,13 @@ export class Account {
         address: a.address,
         network: a.network,
         balances: parsedDenoms,
-      };;
+      };
     });
     this.balances = balances;
   };
 
-   getStaked = async () => {
-     const staked = await mapAsync(this.addresses, async (a) => {
+  getStaked = async () => {
+    const staked = await mapAsync(this.addresses, async (a) => {
       const network = _.keyBy(this.networks, "name")[a.network];
       const client = await makeClient(network.rpc);
       const staked = await client.staking.delegatorDelegations(a.address);
@@ -155,27 +151,25 @@ export class Account {
         address: a.address,
         network: a.network,
       };
-     });
-     this.staked= staked;
-   };
-  
-   getRewards = async () => {
-     const rewards =  await mapAsync(this.addresses, async (a) => {
+    });
+    this.staked = staked;
+  };
+
+  getRewards = async () => {
+    const rewards = await mapAsync(this.addresses, async (a) => {
       const network = _.keyBy(this.networks, "name")[a.network];
       const client = await makeClient(network.rpc);
       const rewards = await client.distribution.delegationTotalRewards(
         a.address
       );
-       return {
-         network: a.network,
-         address: a.address,
-         rewards
+      return {
+        network: a.network,
+        address: a.address,
+        rewards,
       };
-     });
-     this.rewards = rewards;
-   };
-  
-
+    });
+    this.rewards = rewards;
+  };
 }
 
 export const validateAddress = (address) => {

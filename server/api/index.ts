@@ -1,7 +1,5 @@
-
-
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   return {
-    users : "users"
+    users: 'users'
   }
 })

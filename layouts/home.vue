@@ -1,8 +1,6 @@
-
-
 <template>
   <v-app class="background" full-height>
-    <AppBar/>
+    <AppBar />
     <v-main>
       <v-container>
         <slot />
@@ -12,10 +10,9 @@
 </template>
 
 <style>
- .background {
-    background-repeat: repeat;
-    background: url(../darkness.webp), #070C38;
-    background-blend-mode: lighten, normal;
-  }
-
+.background {
+  background-repeat: repeat;
+  background: url(~/assets/darkness.webp), #070c38;
+  background-blend-mode: lighten, normal;
+}
 </style>

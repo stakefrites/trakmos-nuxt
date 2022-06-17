@@ -1,8 +1,8 @@
 // plugins/vuetify.ts
-import { defineNuxtPlugin } from "#app";
-import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
@@ -13,11 +13,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         light: {
           dark: true,
           colors: {
-            primary: "#F26D78",
-          },
-        },
-      },
-    },
-  });
-  nuxtApp.vueApp.use(vuetify);
-});
+            primary: '#F26D78'
+          }
+        }
+      }
+    }
+  })
+  nuxtApp.vueApp.use(vuetify)
+})
