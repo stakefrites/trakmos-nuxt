@@ -4,7 +4,8 @@ import { storeToRefs } from 'pinia'
 import { useStore } from '~/store/store'
 const store = useStore()
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
+//const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.trakmos.app'
+const BASE_URL = 'https://api.trakmos.app'
 
 const { id, user, tokens, isTokensLoading } = storeToRefs(store)
 

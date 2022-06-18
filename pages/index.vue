@@ -31,16 +31,16 @@ const router = useRouter()
 
 <style scoped>
 @font-face {
-  font-family: 'Brandon Grotesque';
+  font-family: 'Brandon';
   font-weight: 400;
   font-style: normal;
   font-display: auto;
   unicode-range: U+000-5FF;
-  src: local('Brandon Grotesque'), url('/font/brandon-grotesque-black-58a8a3e824392.otf') format('otf');
+  src: url('~/assets/fonts/Brandon-Grotesque-black.otf') format('otf');
 }
 
 .heading {
-  font-family: 'Brandon Grotesque';
+  font-family: 'Brandon';
   font-style: normal;
   font-weight: 500;
   color: #eb928c;
