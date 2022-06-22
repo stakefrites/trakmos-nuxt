@@ -9,8 +9,6 @@ const errorMessage = ref(null)
 const router = useRouter()
 const store = useStore()
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
-
 const { id, user } = storeToRefs(store)
 
 onBeforeMount(() => {
@@ -29,9 +27,8 @@ const isSignIn = () => {
 
 const login = async () => {
   errorMessage.value = null
-  const { data } = await useFetch('/trakmos/login', {
+  const { data } = await useFetch('/api/auth/login', {
     method: 'POST',
-    baseURL: BASE_URL,
     body: {
       user: {
         username: username.value,
@@ -55,9 +52,8 @@ const signup = async () => {
   if (!isPasswordMatching) {
     errorMessage.value = 'Passwords do not match'
   } else {
-    const { data, error } = await useFetch('/trakmos/signup', {
+    const { data, error } = await useFetch('/api/auth/signup', {
       method: 'POST',
-      baseURL: BASE_URL,
       body: {
         user: {
           username: username.value,
@@ -91,7 +87,7 @@ const signup = async () => {
             <v-btn class="mySecondaryButton" variant="outlined" @click="isSignIn">login</v-btn>
           </template>
         </MyCard>
-        <MyCard v-if="loginType == 'signIn'" title="Welcome back to trakmos, fren." hasActions>
+        <MyCard v-if="loginType === 'signIn'" title="Welcome back to trakmos, fren." hasActions>
           <v-alert type="error" v-if="errorMessage">{{ errorMessage }}</v-alert>
           <template v-slot:content>
             <div class="text-body-2">Your stake is in your plate, waiting with warm fries. 🍟</div>
@@ -105,7 +101,7 @@ const signup = async () => {
             <v-btn class="myPrimaryButton" @click="login">Login</v-btn>
           </template>
         </MyCard>
-        <MyCard v-if="loginType == 'signUp'" title="Sign Up" hasActions>
+        <MyCard v-if="loginType === 'signUp'" title="Sign Up" hasActions>
           <template v-slot:content>
             <div class="text-body-1">Hello, fellow cosmonaut.</div>
             <div class="text-body-2">You are tired of managing all of your steaks 🥩.</div>

@@ -7,25 +7,18 @@ const router = useRouter()
 
 const account = reactive({})
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
-
-onBeforeMount(async () => {
-  const { data, error } = await useFetch(`/trakmos/account/${id.value}`, {
+  const { data, error } = await useFetch(`/api/account/${id.value}`, {
     method: 'GET',
-    baseURL: BASE_URL
   })
 
-  if (error || data.value.status === 'error') {
-    console.log('An error has occured')
+  if (error.value) {
+    console.log('An error has occured!\n%j' , error.value)
   }
 
-  console.log(data.value)
   account.value = data.value.account
-})
 
 const tokenValue = (t) => {
   const found = tokens.value.find((to) => to.base === t.denom)
-  console.log(found)
   return t.amount * found.price.cad
 }
 
