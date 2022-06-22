@@ -1,19 +1,19 @@
-import { fromBech32, normalizeBech32, toBech32 } from "@cosmjs/encoding";
-import axios from "axios";
-import CosmosDirectory from "./CosmosDirectory";
-const directory = CosmosDirectory();
-import _ from "lodash";
+import {fromBech32, toBech32} from '@cosmjs/encoding';
 import {
-  setupStakingExtension,
   QueryClient as CosmjsQueryClient,
   setupBankExtension,
   setupDistributionExtension,
-  setupMintExtension,
   setupGovExtension,
   setupIbcExtension,
-} from "@cosmjs/stargate";
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
+  setupMintExtension,
+  setupStakingExtension,
+} from '@cosmjs/stargate';
+import {Tendermint34Client} from '@cosmjs/tendermint-rpc';
+import _ from 'lodash';
 
+import CosmosDirectory from './CosmosDirectory';
+
+const directory = CosmosDirectory();
 const mapAsync = async (array, fn) => {
   let promises = await Promise.allSettled(array.map(fn));
   return promises.map((p) => {
@@ -53,7 +53,7 @@ export class Account {
 
   init = async () => {
     try {
-      const networks = await mapAsync(this.activated, async (network) => {
+      this.networks = await mapAsync(this.activated, async (network) => {
         const chains = await directory.getChains();
         const chain = chains[network];
         const chainData = await directory.getChainData(network);
@@ -64,7 +64,6 @@ export class Account {
           rest: directory.restUrl(network),
         };
       });
-      this.networks = networks;
       await this.getAddresses();
     } catch (error) {
       return error;
@@ -89,7 +88,7 @@ export class Account {
 
   getAddresses = async () => {
     const decoded = fromBech32(this.address);
-    const addresses = await mapAsync(this.networks, (network) => {
+    this.addresses = await mapAsync(this.networks, (network) => {
       try {
         const address = toBech32(network.data.bech32_prefix, decoded.data);
         return {
@@ -100,7 +99,6 @@ export class Account {
         console.log(error);
       }
     });
-    this.addresses = addresses;
   };
 
   getIbcDenoms = async (coins, client) => {
@@ -120,7 +118,7 @@ export class Account {
   };
 
   getBalances = async () => {
-    const balances = await mapAsync(this.addresses, async (a) => {
+    this.balances = await mapAsync(this.addresses, async (a) => {
       const network = _.keyBy(this.networks, "name")[a.network];
       const client = await makeClient(network.rpc);
       const allBalances = await client.bank.allBalances(a.address);
@@ -138,11 +136,10 @@ export class Account {
         balances: parsedDenoms,
       };
     });
-    this.balances = balances;
   };
 
   getStaked = async () => {
-    const staked = await mapAsync(this.addresses, async (a) => {
+    this.staked = await mapAsync(this.addresses, async (a) => {
       const network = _.keyBy(this.networks, "name")[a.network];
       const client = await makeClient(network.rpc);
       const staked = await client.staking.delegatorDelegations(a.address);
@@ -152,15 +149,14 @@ export class Account {
         network: a.network,
       };
     });
-    this.staked = staked;
   };
 
   getRewards = async () => {
-    const rewards = await mapAsync(this.addresses, async (a) => {
+    this.rewards = await mapAsync(this.addresses, async (a) => {
       const network = _.keyBy(this.networks, "name")[a.network];
       const client = await makeClient(network.rpc);
       const rewards = await client.distribution.delegationTotalRewards(
-        a.address
+          a.address
       );
       return {
         network: a.network,
@@ -168,7 +164,6 @@ export class Account {
         rewards,
       };
     });
-    this.rewards = rewards;
   };
 }
 

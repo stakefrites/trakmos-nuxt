@@ -1,18 +1,11 @@
 <script setup>
-import { is } from '@babel/types'
 import { storeToRefs } from 'pinia'
 import { useStore } from '~/store/store'
 const store = useStore()
 
-//const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.trakmos.app'
-const BASE_URL = 'https://api.trakmos.app'
+const { tokens, isTokensLoading } = storeToRefs(store)
 
-const { id, user, tokens, isTokensLoading } = storeToRefs(store)
-
-const { data: tokensData, pending } = await useFetch(`/tokens`, {
-  method: 'GET',
-  baseURL: BASE_URL
-})
+const { data: tokensData, pending } = await useFetch(`/api/tokens`);
 isTokensLoading.value = pending
 tokens.value = tokensData.value
 </script>
@@ -33,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Josefin Sans', 'Sans';
+  font-family: 'Josefin Sans', 'Sans',sans-serif;
 }
 
 .text-h1,
@@ -44,6 +37,6 @@ h6 {
 .text-h6,
 .text-body-1,
 .text-body-2 {
-  font-family: 'Josefin Sans', 'Sans' !important;
+  font-family: 'Josefin Sans', 'Sans',sans-serif !important;
 }
 </style>
