@@ -10,7 +10,7 @@ const router = useRouter()
 const store = useStore()
 
 const { id, user } = storeToRefs(store)
-const BASE_URL = 'https://api.trakmos.app'
+const BASE_URL = 'https://staging.api.trakmos.app'
 
 onBeforeMount(() => {
   if (id.value) {

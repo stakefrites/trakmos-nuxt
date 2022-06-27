@@ -1,87 +1,30 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStore } from '~/store/store'
+import MyButton from '../components/MyButton'
 const router = useRouter()
 </script>
 
 <template>
   <NuxtLayout name="home">
-    <v-row>
-      <v-col>
-        <div class="heading-div mt-10">
-          <h3 class="heading heading1">Multi-wallet</h3>
-          <h3 class="heading heading2">Interchain Portfolio</h3>
-          <p class="mt-5 subheading">Monitor all your stake’s temperature in one place</p>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <div class="image-div">
-          <img class="illustration" src="~/assets/Illustration.png" />
-        </div>
-      </v-col>
-    </v-row>
-    <div class="myButtons">
-      <v-btn @click="router.push('/login')" size="x-large" class="myButton"> Trak Now </v-btn>
-      <v-btn @click="router.push('/prices')" size="x-large" class="ml-3 myButton"> Prices </v-btn>
-    </div>
+    <section class="grid md:grid-cols-3 <md:grid-cols-1 h-xl">
+      <div class="row-span-2 row-start-1 col-start-1 col-span-3">
+        <h1 class="font-brandon uppercase text-8xl <md:text-4xl <md:max-w-30rem max-w-60rem text-stake-100">
+          Multi-wallet Interchain Portfolio
+        </h1>
+        <h2 class="font-brandonlight font-bold text-white max-w-60rem text-6xl <md:text-2xl <md:max-w-30rem">
+          Monitor all your stake’s temperature in one place
+        </h2>
+      </div>
+      <div class="mt-10 md:row-start-4 md:row-end-5 md:col-start-3 md:col-end-4 <md:row-start-4 <md:flex <md:justify-end <md:row-span-2 h-max">
+        <img alt="Stake illustration" class="w-30rem <md:w-20rem" src="~/assets/Illustration.png" />
+      </div>
+      <div class="md:row-start-5 md:row-end-6 flex space-x-2 py-10 <md:row-start-6 <md:flex <md:justify-center h-max">
+        <MyButton :primary="true" text="Trak Now" :handler="()=>router.push('/login')"/>
+        <MyButton :primary="false" text="Prices" :handler="()=>router.push('/prices')" />
+      </div>
+    </section>
   </NuxtLayout>
 </template>
 
-<style scoped>
-@font-face {
-  font-family: 'Brandon';
-  font-weight: 400;
-  font-style: normal;
-  font-display: auto;
-  unicode-range: U+000-5FF;
-  src: url('~/assets/fonts/Brandon-Grotesque-black.otf') format('otf');
-}
+<style>
 
-.heading {
-  font-family: 'Brandon';
-  font-style: normal;
-  font-weight: 500;
-  color: #eb928c;
-  text-transform: uppercase;
-}
-
-.heading1 {
-  font-size: 64px;
-  line-height: 62px;
-}
-
-.heading2 {
-  font-size: 96px;
-  line-height: 100px;
-}
-
-.subheading {
-  font-family: 'Fira Code';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 36px;
-  line-height: 44px;
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.illustration {
-  height: 35vh;
-}
-
-.image-div {
-  padding-top: 100px !important;
-  display: flex;
-  justify-content: flex-end;
-  flex-grow: 1;
-}
-
-.myButton {
-  background: #070c38 !important;
-  border: 1px solid #76efd3 !important;
-  border-radius: 6px;
-  color: #76efd3;
-}
 </style>
