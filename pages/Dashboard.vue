@@ -6,7 +6,7 @@ const { id, user, tokens } = storeToRefs(store)
 const router = useRouter()
 
 const account = reactive({})
-const BASE_URL = 'https://api.trakmos.app'
+const BASE_URL = 'https://staging.api.trakmos.app'
   const { data, error } = await useFetch(`/trakmos/account/${id.value}`, {
     method: 'GET',
     baseURL: BASE_URL,
@@ -52,12 +52,12 @@ const formatCurrency = (value, currency) => {
   <NuxtLayout name="home">
     <v-row>
       <v-col sm="10" md="8">
-        <div class="text-h2">Dashboard</div>
+        <div class="text-8xl">Dashboard</div>
       </v-col>
     </v-row>
     <v-row v-if="account.value">
       <v-col>
-        <div class="text-h3">Accounts</div>
+        <div class="text-5xl">Accounts</div>
         <v-card>
           <v-col v-for="acc in account.value.accounts">
             <div class="text-h4">{{ acc.name }}</div>
