@@ -5,10 +5,7 @@ export default defineNuxtConfig({
   css: [
     'vuetify/lib/styles/main.sass',
     'mdi/css/materialdesignicons.min.css',
-    'virtual:windi-base.css',
     '~/assets/fonts/global.css',
-    'virtual:windi-components.css',
-    'virtual:windi-utilities.css'
   ],
   typescript: {
     typeCheck: false
