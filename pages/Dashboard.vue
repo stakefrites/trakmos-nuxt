@@ -7,7 +7,7 @@ const router = useRouter()
 
 const account = reactive({})
 const BASE_URL = 'https://api.trakmos.app'
-  const { data, error } = await useFetch(`/api/account/${id.value}`, {
+  const { data, error } = await useFetch(`/trakmos/account/${id.value}`, {
     method: 'GET',
     baseURL: BASE_URL,
   })
@@ -15,6 +15,7 @@ const BASE_URL = 'https://api.trakmos.app'
   if (error.value) {
     console.log('An error has occured!\n%j' , error.value)
   }
+  const total = ref(0);
 
   account.value = data.value.account
 
@@ -22,6 +23,10 @@ const tokenValue = (t) => {
   const found = tokens.value.find((to) => to.base === t.denom)
   return t.amount * found.price.cad
 }
+
+data.value.account.tokens.total.map(t=> {
+  total.value += tokenValue(t)
+})
 
 const tokenName = (t) => {
   const found = tokens.value.find((to) => to.base === t.denom)
@@ -60,6 +65,9 @@ const formatCurrency = (value, currency) => {
             <div class="text-body-1"><strong>Evmos:</strong> {{ acc.evmosAddress }}</div>
           </v-col>
         </v-card>
+      </v-col>
+      <v-col>
+        <div class="text-h3">{{formatCurrency(total, "cad")}}</div>
       </v-col>
     </v-row>
     <v-row v-if="account.value">

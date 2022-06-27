@@ -28,7 +28,7 @@ const isSignIn = () => {
 
 const login = async () => {
   errorMessage.value = null
-  const { data } = await useFetch('/api/auth/login', {
+  const { data } = await useFetch('/trakmos/login', {
     method: 'POST',
     baseURL: BASE_URL,
     body: {
@@ -43,6 +43,7 @@ const login = async () => {
     console.log(`An error has occured: ${data.value.message}`)
     errorMessage.value = data.value.message
   } else {
+    console.log(data.value)
     id.value = data.value.user
     router.push('/dashboard')
   }
@@ -54,7 +55,7 @@ const signup = async () => {
   if (!isPasswordMatching) {
     errorMessage.value = 'Passwords do not match'
   } else {
-    const { data, error } = await useFetch('/api/auth/signup', {
+    const { data, error } = await useFetch('/trakmos/signup', {
       method: 'POST',
       baseURL: BASE_URL,
       body: {
