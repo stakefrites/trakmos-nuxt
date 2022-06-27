@@ -10,6 +10,7 @@ const router = useRouter()
 const store = useStore()
 
 const { id, user } = storeToRefs(store)
+const BASE_URL = 'https://api.trakmos.app'
 
 onBeforeMount(() => {
   if (id.value) {
@@ -29,6 +30,7 @@ const login = async () => {
   errorMessage.value = null
   const { data } = await useFetch('/api/auth/login', {
     method: 'POST',
+    baseURL: BASE_URL,
     body: {
       user: {
         username: username.value,
@@ -54,6 +56,7 @@ const signup = async () => {
   } else {
     const { data, error } = await useFetch('/api/auth/signup', {
       method: 'POST',
+      baseURL: BASE_URL,
       body: {
         user: {
           username: username.value,

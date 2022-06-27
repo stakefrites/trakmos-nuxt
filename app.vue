@@ -5,7 +5,11 @@ const store = useStore()
 
 const { tokens, isTokensLoading } = storeToRefs(store)
 
-const { data: tokensData, pending } = await useFetch(`/api/tokens`);
+const BASE_URL = 'https://api.trakmos.app'
+
+const { data: tokensData, pending } = await useFetch(`/tokens`, {
+  baseURL: BASE_URL,
+});
 isTokensLoading.value = pending
 tokens.value = tokensData.value
 </script>

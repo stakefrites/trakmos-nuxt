@@ -6,9 +6,10 @@ const { id, user, tokens } = storeToRefs(store)
 const router = useRouter()
 
 const account = reactive({})
-
+const BASE_URL = 'https://api.trakmos.app'
   const { data, error } = await useFetch(`/api/account/${id.value}`, {
     method: 'GET',
+    baseURL: BASE_URL,
   })
 
   if (error.value) {

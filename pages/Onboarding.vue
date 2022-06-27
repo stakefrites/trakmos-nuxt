@@ -7,8 +7,7 @@ const router = useRouter();
 const { id } = storeToRefs(store);
 
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
-
+const BASE_URL = 'https://api.trakmos.app'
 const NETWORKS = ["cosmoshub", "juno", "evmos"];
 
 const accounts = reactive({
