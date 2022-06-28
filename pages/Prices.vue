@@ -23,7 +23,7 @@ const formatCurrency = (value, currency) => {
         <div>
           <div class="mb-5 font-brandon text-4xl text-stake-100 uppercase">Cosmos tokens</div>
           <div class="grid <md:grid-cols-2 md:grid-cols-4 text-white md:gap-10 <md:gap-4">
-            <div class="" v-for="(token,index) in tokens.filter(t=>t.price)">
+            <div v-if="tokens" v-for="(token,index) in tokens.filter(t=>t.price)">
               <div class="flex flex-col justify-center items-center border-5 border-stake-100 rounded-md pa-6 min-h-full shadow-sm shadow-stake-100">
                 <img :alt="`image-${token.network}`" class="w-14" v-if="token.image && token.name != 'Frax'" :src="token.image"/>
                 <div class="font-brandonlight font-bold text-center text-2xl my-4">{{ token.name }}</div>
@@ -37,7 +37,7 @@ const formatCurrency = (value, currency) => {
         <div>
           <div class="mb-5 font-brandon text-4xl text-stake-100 uppercase mt-10">Other tokens</div>
           <div class="grid <md:grid-cols-2 md:grid-cols-4  text-white md:gap-10 <md:gap-4">
-            <div class="" v-for="(token,index) in tokens.filter(t=>!t.price)">
+            <div v-if="tokens" v-for="(token,index) in tokens.filter(t=>!t.price)">
               <div class="flex flex-col justify-center items-center border-5 border-stake-100 rounded-md pa-6 min-h-full shadow-sm shadow-stake-100">
                 <img :alt="`image-${token.network}`" class="w-14" v-if="token.image" :src="token.image"/>
                 <div class="font-brandonlight font-bold text-center text-2xl mt-4">{{ token.name }}</div>
