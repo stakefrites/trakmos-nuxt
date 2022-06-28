@@ -18,5 +18,5 @@ export default defineConfig({
   variants: {
     extend: {}
   },
-  plugins: []
+  plugins: [require('windicss/plugin/forms'),]
 })
