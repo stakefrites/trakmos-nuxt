@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useStore } from '~/store/store'
-const loginType = ref(null)
+const loginType = ref("login")
 const username = ref('jean')
 const password = ref('myPassword')
 const confirmPassword = ref('myPassword')
@@ -18,13 +18,6 @@ onBeforeMount(() => {
   }
 })
 
-const isSignUp = () => {
-  loginType.value = 'signUp'
-}
-
-const isSignIn = () => {
-  loginType.value = 'signIn'
-}
 
 const login = async () => {
   errorMessage.value = null
@@ -79,78 +72,38 @@ const signup = async () => {
 
 <template>
   <NuxtLayout name="home">
-    <v-row class="d-flex justify-center">
-      <v-col sm="8" md="6" lg="4">
-        <MyCard v-if="!loginType" title="Login" hasActions>
-          <template v-slot:content>
-            <div class="text-body-1">Welcome to trakmos, fren.</div>
-            <div class="text-body-2">Are you a recurring griller? 🥩.</div>
-          </template>
-          <template v-slot:actions>
-            <v-btn class="myPrimaryButton" @click="isSignUp">Sign up</v-btn>
-            <v-btn class="mySecondaryButton" variant="outlined" @click="isSignIn">login</v-btn>
-          </template>
-        </MyCard>
-        <MyCard v-if="loginType === 'signIn'" title="Welcome back to trakmos, fren." hasActions>
-          <v-alert type="error" v-if="errorMessage">{{ errorMessage }}</v-alert>
-          <template v-slot:content>
-            <div class="text-body-2">Your stake is in your plate, waiting with warm fries. 🍟</div>
-            <v-form class="mt-10">
-              <v-text-field v-model="username" label="Username" type="text" required bg-color="#76EFD3"> </v-text-field>
-              <v-text-field v-model="password" label="Password" type="password" required bg-color="#76EFD3">
-              </v-text-field>
-            </v-form>
-          </template>
-          <template v-slot:actions>
-            <v-btn class="myPrimaryButton" @click="login">Login</v-btn>
-          </template>
-        </MyCard>
-        <MyCard v-if="loginType === 'signUp'" title="Sign Up" hasActions>
-          <template v-slot:content>
-            <div class="text-body-1">Hello, fellow cosmonaut.</div>
-            <div class="text-body-2">You are tired of managing all of your steaks 🥩.</div>
-            <v-form class="mt-10">
-              <v-text-field v-model="username" label="Username" type="text" required bg-color="#76EFD3" class="myInput">
-              </v-text-field>
-              <v-text-field
-                v-model="password"
-                label="Password"
-                type="password"
-                required
-                class="myInput"
-                bg-color="#76EFD3"
-              >
-              </v-text-field>
-              <v-text-field
-                v-model="confirmPassword"
-                label="Confirm your password"
-                type="password"
-                required
-                bg-color="#76EFD3"
-              >
-              </v-text-field>
-            </v-form>
-          </template>
-          <template v-slot:actions>
-            <v-btn class="myPrimaryButton" @click="signup">Sign Up</v-btn>
-          </template>
-        </MyCard>
-      </v-col>
-    </v-row>
+    <div class="grid md:grid-cols-3">
+      <div class="flex flex-col align-center md:col-span-2">
+        <div class="border-[#76efd3] border-10 rounded-lg px-8 py-8 flex flex-col <md:min-w-full min-w-40rem">
+          <div class="text-4xl font-brandonlight font-weight-bold text-white">{{loginType === "login" ? "Login": "Sign Up"}}</div>
+          <div class="mt-6 text-white text-lg font-brandonlight">Username</div>
+          <input v-model="username" class="bg-[#76efd3] font-brandonlight" type="text"/>
+          <div class="mt-6 text-white text-lg font-brandonlight">Password</div>
+          <input v-model="password" class="bg-[#76efd3] font-brandonlight" type="password"/>
+          <div v-if="loginType === 'signup'" class="flex flex-col">
+            <div class="mt-6 text-white text-lg font-brandonlight">Confirm Password</div>
+            <input v-model="password" class="bg-[#76efd3] font-brandonlight" type="password"/>
+          </div>
+          <div v-if="loginType === 'login'" class="mt-8 align-self-end flex flex-col justify-end">
+            <MyButton @click="login" class="align-self-end" primary text="Login"/>
+            <a @click="loginType = 'signup'" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">Don't have an account ?</a>
+          </div>
+          <div v-if="loginType === 'signup'" class="mt-8 align-self-end flex flex-col justify-end">
+            <MyButton @click="signup" class="align-self-end" primary text="Sign Up"/>
+            <a @click="loginType = 'login'" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">You already have an account?</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="flex flex-col justify-center <md:mt-10">
+        <img alt="fries" class="align-self-center w-25rem <md:w-15rem" src="~/assets/steak-fries-2.png"/>
+      </div>
+
+    </div>
+
   </NuxtLayout>
 </template>
 
 <style scoped>
-.myPrimaryButton {
-  background: #070c38 !important;
-  border: 1px solid #76efd3 !important;
-  border-radius: 6px;
-  color: #76efd3;
-}
-.mySecondaryButton {
-  background: #76efd3 !important;
-  border: 1px solid #76efd3 !important;
-  border-radius: 6px;
-  color: #070c38;
-}
+
 </style>

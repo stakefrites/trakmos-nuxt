@@ -27,10 +27,13 @@ const logOut = () => {
         <!-- Primary Navbar items -->
         <div class="hidden md:flex items-center space-x-1">
           <router-link
+            to="/login"
+            class="py-4 px-2 text-gray-500 font-brandonlight text-xl font-bold hover:text-[#76efd3] transition duration-300"
+          >App</router-link>
+          <router-link
             to="/prices"
-            class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
-            >Prices</router-link
-          >
+            class="py-4 px-2 text-gray-500 font-brandonlight font-bold text-xl hover:text-[#76efd3] transition duration-300"
+            >Prices</router-link>
         </div>
         <div class="md:hidden flex items-center">
           <button class="outline-none mobile-menu-button">

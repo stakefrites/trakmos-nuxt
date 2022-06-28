@@ -16,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "@vue/eslint-config-standard": "^7.0.0",
+    "@windicss/plugin-heropatterns": "^0.0.8",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
@@ -31,6 +32,7 @@
     "@cosmjs/encoding": "^0.28.4",
     "@cosmjs/stargate": "^0.28.4",
     "@cosmjs/tendermint-rpc": "^0.28.4",
+    "@heroicons/vue": "^1.0.6",
     "@pinia/nuxt": "^0.1.9",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
@@ -39,6 +41,7 @@
     "mdi": "^2.2.43",
     "mongoose": "^6.3.4",
     "pinia": "^2.0.14",
-    "vuetify": "3.0.0-alpha.12"
+    "vuetify": "3.0.0-alpha.12",
+    "windicss": "^3.5.5"
   }
 }
