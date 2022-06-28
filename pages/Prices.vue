@@ -20,39 +20,40 @@ const formatCurrency = (value, currency) => {
 <template>
     <NuxtLayout name="home">
       <section class="md:pb-25">
-        <div class="table text-white table-fixed w-full border-collapse <md:hidden">
-          <div class="table-caption mb-5 font-brandon text-4xl text-stake-100 uppercase">Cosmos tokens</div>
-          <div class="table-header-group">
-            <div class="table-row font-bold text-2xl bg-grey-darken-4">
-              <div class="table-cell px-1 py-2"></div>
-              <div class="table-cell px-1 py-2">Network</div>
-              <div class="table-cell px-1 py-2">Symbol</div>
-              <div class="table-cell px-1 py-2">USD</div>
-              <div class="table-cell px-1 py-2">CAD</div>
-              <div class="table-cell px-1 py-2">EUR</div>
-            </div>
-          </div>
-          <div class="table-row-group">
-            <div v-for="(token,index) in tokens" :class="index % 2 === 0 ? `table-row bg-grey-darken-1`: `table-row bg-grey`">
-              <div class="table-cell px-1 py-1">
-                <img :alt="`image-${token.network}`" class="w-10" v-if="token.image" :src="token.image"/>
+        <div>
+          <div class="mb-5 font-brandon text-4xl text-stake-100 uppercase">Cosmos tokens</div>
+          <div class="grid <md:grid-cols-2 md:grid-cols-4 text-white md:gap-10 <md:gap-4">
+            <div class="" v-for="(token,index) in tokens.filter(t=>t.price)">
+              <div class="flex flex-col justify-center items-center border-5 border-stake-100 rounded-md pa-6 min-h-full shadow-sm shadow-stake-100">
+                <img :alt="`image-${token.network}`" class="w-14" v-if="token.image && token.name != 'Frax'" :src="token.image"/>
+                <div class="font-brandonlight font-bold text-center text-2xl my-4">{{ token.name }}</div>
+                <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.usd, "usd"): "-" }}</div>
+                <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.cad, "cad"): "-" }}</div>
+                <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.eur, "eur"): "-" }}</div>
               </div>
-              <div class="table-cell px-1 py-1">{{ token.name }}</div>
-              <div class="table-cell px-1 py-1">{{ token.symbol }}</div>
-              <div class="table-cell px-1 py-1">{{ token.price ? formatCurrency(token.price.usd, "usd"): "-" }}</div>
-              <div class="table-cell px-1 py-1">{{ token.price ? formatCurrency(token.price.cad, "cad"): "-" }}</div>
-              <div class="table-cell px-1 py-1">{{ token.price ? formatCurrency(token.price.eur, "eur"): "-" }}</div>
             </div>
           </div>
         </div>
         <div>
-          <div class="mb-5 font-brandon text-4xl text-stake-100 uppercase">Cosmos tokens</div>
-          <div class="grid grid-cols-2 text-white text-2xl gap-3">
-            <div class="" v-for="(token,index) in tokens">
-              <div class="flex flex-col justify-center items-center border-2 rounded-md pa-6 min-h-full">
+          <div class="mb-5 font-brandon text-4xl text-stake-100 uppercase mt-10">Other tokens</div>
+          <div class="grid <md:grid-cols-2 md:grid-cols-4  text-white md:gap-10 <md:gap-4">
+            <div class="" v-for="(token,index) in tokens.filter(t=>!t.price)">
+              <div class="flex flex-col justify-center items-center border-5 border-stake-100 rounded-md pa-6 min-h-full shadow-sm shadow-stake-100">
                 <img :alt="`image-${token.network}`" class="w-14" v-if="token.image" :src="token.image"/>
                 <div class="font-brandonlight font-bold text-center text-2xl mt-4">{{ token.name }}</div>
-                <div class="font-brandonlight font-bold text-center text-xl mt-4">{{ token.price ? formatCurrency(token.price.usd, "usd"): "-" }}</div>
+                <div v-if="token.price" class="flex align-center space-x-1">
+                  <div class="text-sm font-brandonlight">USD</div>
+                  <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.usd, "usd"): "-" }}</div>
+                </div>
+                <div v-if="token.price" class="flex align-center space-x-1">
+                  <div class="text-sm font-brandonlight">CAD</div>
+                  <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.cad, "cad"): "-" }}</div>
+                </div>
+                <div v-if="token.price" class="flex align-center space-x-1">
+                  <div class="text-sm font-brandonlight">EUR</div>
+                  <div class="font-brandonlight font-bold text-xl ">{{ token.price ? formatCurrency(token.price.eur, "eur"): "-" }}</div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -64,7 +65,5 @@ const formatCurrency = (value, currency) => {
 </template>
 
 <style>
-.table {
-    color:black;
-}
+
 </style>

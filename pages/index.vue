@@ -15,9 +15,9 @@ const router = useRouter()
         </h2>
       </div>
       <div class="mt-10 md:row-start-4 md:row-end-5 md:col-start-3 md:col-end-4 <md:row-start-4 <md:flex <md:justify-end <md:row-span-2 h-max">
-        <img alt="Stake illustration" class="w-35rem <md:w-20rem" src="~/assets/Illustration.png" />
+        <img alt="Stake illustration" class="w-35rem <md:w-20rem" src="~/assets/illustration.png" />
       </div>
-      <div class="md:row-start-3 md:row-end-5 flex place-self-center space-x-8 <md:row-start-6 <md:flex <md:justify-center h-max">
+      <div class="md:row-start-3 md:row-end-5 flex self-center space-x-8 <md:row-start-6 <md:flex <md:justify-center h-max">
         <MyButton :primary="true" text="Trak Now" :handler="()=>router.push('/login')"/>
         <MyButton :primary="false" text="Prices" :handler="()=>router.push('/prices')" />
       </div>
