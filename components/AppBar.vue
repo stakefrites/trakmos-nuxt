@@ -28,7 +28,7 @@ const logOut = () => {
         <div class="hidden md:flex items-center space-x-1">
           <router-link
             to="/prices"
-            class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+            class="py-4 px-2 text-gray-500 font-brandonlight font-bold hover:text-green-500 transition duration-300"
             >Prices</router-link
           >
         </div>

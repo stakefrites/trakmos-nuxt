@@ -21,8 +21,5 @@ tokens.value = tokensData.value
 </template>
 
 <style>
-  html{
-    @apply font-brandon
-    @apply font-brandonlight
-  }
+
 </style>
