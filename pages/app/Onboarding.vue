@@ -100,6 +100,10 @@ const page2 = () => {
     }
 }
 
+const remove = (i) => {
+    accounts.accounts.splice(i, 1);
+}
+
 const createAccount = async () => {
     isLoading.value = true;
     const { data, error, loading } = await useFetch(`/trakmos/account`, {
@@ -130,91 +134,48 @@ const createAccount = async () => {
 
 <template>
   <NuxtLayout name="home">
-    <v-row class="d-flex justify-center">
-        <v-col sm="8" md="6" lg="4">
-            <div class="text-h2">Onboarding</div>
-        </v-col>
-    </v-row>
-    <div  v-if="page == 1">
-        <v-row class="d-flex justify-center">
-            <v-col sm="8" md="6" lg="4">
-                <div class="text-h3">Configure your accounts</div>
-                <div class="text-body-2">First, we will configure your different accounts. </div>
-                <div class="text-body-2">To do that, we will need to get an address from Keplr and your evmos address from keplr.</div>
-                <v-divider></v-divider>
-                <div class="mt-2 text-h5">Your Keplr is currently set on <strong>{{accounts.currentKey}}</strong></div>
-                {{alreadySet === -1 ? "" : `Make sure you change your Keplr account before setting a new account. This key is used for account #${alreadySet + 1}`}}
-            </v-col>
-        </v-row>
-        <v-row class="d-flex justify-center">
-            <v-col sm="8" md="6" lg="6">
-                <MyCard hasActions>
-                    <template v-slot:content>
-                        <div v-for="(account,i) in accounts.accounts">
-                            <v-card-title>
-                                <div class="text-h4 card-heading">Account {{i+ 1}}</div>
-                            </v-card-title>
-                            <v-card-text>
-                                <v-text-field
-                                    v-model="account.name"
-                                    label="Name this account"
-                                    type="text"
-                                    required
-                                    bg-color="#76EFD3"
-                                    >
-                                </v-text-field>
-                                <v-text-field
-                                    v-if="account.bech32Address"
-                                    v-model="account.bech32Address"
-                                    label="Cosmos Address"
-                                    disabled
-                                    type="text"
-                                    required
-                                    bg-color="#76EFD3"
-                                    >
-                                </v-text-field>
-                                <v-btn class="myPrimaryButton" v-else @click="getBech32Address(i)">Get Bech32 Address</v-btn>
-                                <v-text-field
-                                    v-if="account.evmosAddress"
-                                    v-model="account.evmosAddress"
-                                    label="Evmos Address"
-                                    disabled
-                                    type="text"
-                                    required
-                                    bg-color="#76EFD3"
-                                    >
-                                </v-text-field>
-                                <v-btn class="myPrimaryButton" v-else @click="getEvmosAddress(i)">Get Evmos Address</v-btn>
-                            </v-card-text>
-                        </div>
-                    </template>
-                    <template v-slot:actions>
-                        <v-btn class="myPrimaryButton" @click="addOne">Add another account</v-btn>
-                        <v-btn class="mySecondaryButton" @click="page2">Next</v-btn>
-                    </template>
-                </MyCard>
-            </v-col>
-        </v-row>
-    </div>
-    <div v-if="page === 2">
-        <v-row class="d-flex justify-center">
-            <v-col sm="8" md="6" lg="4">
-                <MyCard title="Select your currency" hasActions>
-                    <template v-slot:content>
-                        <v-radio-group v-model="accounts.currency">
-                            <v-radio class="white--text"  v-for="item in items"
-                                :label="item"
-                                :value="item"
-                            ></v-radio>
-                        </v-radio-group>
-                    </template>
-                    <template v-slot:actions>
-                        <v-btn class="myPrimaryButton" v-if="accounts.currency !== ''" @click="createAccount">Finish</v-btn>
-                    </template>
-                </MyCard>
-            </v-col>
-        </v-row>    
-    </div>
+      <div class="bg-primary-600 px-14 py-10 rounded-xl flex flex-col text-white">
+        <div class="flex flex-row justify-space-between">
+          <div class="font-brandon uppercase text-6xl mb-10">Set your account</div>
+          <div class="flex flex-row">
+            <div class="font-brandonlight mr-4">Keplr:</div>
+            <div class="bg-accent-500 px-2 font-brandon uppercase rounded-lg text-xl h-max text-primary-500">{{accounts.currentKey}}</div>
+          </div>
+        </div>
+        <div v-if="page ===1">
+          <p class="font-brandonlight text-lg">First, we will configure your different accounts.</p>
+          <p class="font-brandonlight text-lg">To do that, we will need to get an address from Keplr and your evmos address from keplr.</p>
+          <div class="mt-10" v-for="(account,i) in accounts.accounts">
+            <div class="flex justify-space-between">
+              <div class="font-brandon text-2xl">Account {{i+ 1}}</div>
+              <div v-if="i >0" @click="remove(i)" class="font-brandonlight text-xl cursor-pointer">remove</div>
+            </div>
+
+            <div class="mt-6 text-white text-lg font-brandonlight">Name this account</div>
+            <input type="text" v-model="account.name" class="bg-accent-500 rounded-lg" />
+            <div class="mt-6 text-white text-lg font-brandonlight">Cosmos Address</div>
+            <input type="text" v-model="account.bech32Address" v-if="account.bech32Address" class="bg-accent-500 rounded-lg w-full" />
+            <MyButton @click="getBech32Address(i)" v-else small text="Get Bech32 Address"></MyButton>
+            <div class="mt-6 text-white text-lg font-brandonlight">Evmos Address</div>
+            <input type="text" v-model="account.evmosAddress" v-if="account.evmosAddress" class="bg-accent-500 rounded-lg w-full" />
+            <MyButton @click="getEvmosAddress(i)" v-else small text="Get Evmos Address"></MyButton>
+          </div>
+          <div class="flex flex-row space-x-2 mt-10">
+            <MyButton @click="page2" small primary text="Next"></MyButton>
+            <MyButton @click="addOne" small text="Add another account"></MyButton>
+          </div>
+        </div>
+        <div v-if="page ===2">
+          <div class="my-10 font-brandonlight text-xl font-weight-bold">Select your currency</div>
+          <select class="font-brandonlight">
+            <option>Select a currency</option>
+            <option value="cad">CAD</option>
+            <option value="eur">EUR</option>
+            <option value="usd">USD</option>
+          </select>
+          <MyButton class="mt-10" small primary text="Finish"  @click="createAccount"></MyButton>
+        </div>
+      </div>
   </NuxtLayout>
 </template>
 
