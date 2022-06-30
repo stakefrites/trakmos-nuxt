@@ -7,6 +7,7 @@ export const useStore = defineStore({
     id: null,
     user: {},
     tokens: [],
+    account: {},
     isTokensLoading: false
   }),
   actions: {},
