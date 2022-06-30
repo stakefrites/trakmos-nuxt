@@ -95,14 +95,9 @@ const formatCurrency = (value, currency) => {
       </div>
       <div class="py-10 md:col-span-4 flex flex-col justify-center">
         <div class="font-brandon uppercase text-3xl my-6">Holdings</div>
-        <div class="grid  md:grid-cols-4 font-brandonlight">
-          <div v-for="token in wallet.total" class="flex flex-col align-center bg-primary-500 rounded-lg shadow-xl border-white border-1 py-10 ma-2">
-              <div v-if="!tokenImage(token)" class="font-brandon uppercase rounded-circle bg-white text-primary-500 w-45px h-45px flex justify-center align-center">{{tokenName(token).symbol.slice(0,1)}}</div>
-              <v-img class="rounded-circle bg-white" width="45" v-if="tokenImage(token)" :src="tokenImage(token)"></v-img>
-              <div class="text-2xl pa-3 font-brandon uppercase font-bold ">{{ tokenName(token).name }}</div>
-              <div class=" pa-3">{{ token.amount.toFixed(2) }} {{ tokenName(token).symbol }}</div>
-              <div class=" pa-3">{{ formatCurrency(tokenValue(token), 'cad') }}</div>
-          </div>
+        <div class="grid  md:grid-cols-4 gap-4">
+          <PriceCard v-for="token in wallet.total" :name="tokenName(token).network" :price="formatCurrency(tokenValue(token), 'cad')  ? formatCurrency(tokenValue(token), 'cad') : '-'" :symbol="tokenName(token).symbol" :image="tokenImage(token)"/>
+
         </div>
       </div>
       <div class="font-brandon uppercase text-3xl my-6 md:col-span-4">Action items</div>
