@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { AdjustmentsIcon, ChartPieIcon, CurrencyDollarIcon, FingerPrintIcon } from "@heroicons/vue/outline";
 import { useStore } from "@/store/store";
 
 const store = useStore()
@@ -41,11 +40,13 @@ const { data, error } = await useFetch(`/trakmos/account/${id.value}`, {
 })
 
 if (error.value) {
-  console.log('An error has occured!\n%j' , error.value)
+  console.log('An error has occured!\n %j' , error.value)
+} else {
+  account.value = data.value.account
 }
 
 
-  account.value = data.value.account
+
 
 const tokenValue = (t) => {
   const found = tokens.value.find((to) => to.base === t.denom)
@@ -54,9 +55,12 @@ const tokenValue = (t) => {
 
   const total = computed(()=>{
     let total = 0
-    wallet.value.total.map(t=> {
-      total += tokenValue(t)
-    })
+    if (wallet.value !== undefined) {
+      console.log("passed")
+      wallet.value.total.map(t=> {
+        total += tokenValue(t)
+      })
+    }
     return total
   })
 
@@ -82,11 +86,15 @@ const formatCurrency = (value, currency) => {
 
 <template>
   <NuxtLayout name="side">
-    <div class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-lg pa-10  gap-4">
+    <div v-if="error" class="bg-accent-500 rounded-md py-10 px-6 flex flex-col">
+      <p class="text-md font-brandonlight">An error occured while fetching account data.</p>
+      <MyButton @click="router.push('/app/login')" class="align-self-end mt-10" small text="Back Home"/>
+    </div>
+    <div v-if="!error" class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-lg pa-10  gap-4">
       <div class="md:col-span-4 justify-self-end my-4">
         <select v-model="selectedAccount" class="pr-10">
           <option :value="null">All</option>
-          <option v-for="acc in account.accounts" :value="acc.name">{{ acc.name }}</option>
+          <option v-if="account.accounts" v-for="acc in account.accounts" :value="acc.name">{{ acc.name }}</option>
         </select>
       </div>
       <div class="md:col-span-3 font-brandonlight md:text-6xl <md:text-4xl">
@@ -95,7 +103,7 @@ const formatCurrency = (value, currency) => {
       <div class="py-10 md:col-span-4 flex flex-col justify-center">
         <div class="font-brandon uppercase text-3xl my-6">Holdings</div>
         <div class="grid  md:grid-cols-4 gap-4">
-          <PriceCard v-for="token in wallet.total" :name="tokenName(token).network" :price="formatCurrency(tokenValue(token), 'cad')  ? formatCurrency(tokenValue(token), 'cad') : '-'" :symbol="tokenName(token).symbol" :image="tokenImage(token)"/>
+          <PriceCard v-if="wallet" v-for="token in wallet.total" :name="tokenName(token).network" :price="formatCurrency(tokenValue(token), 'cad')  ? formatCurrency(tokenValue(token), 'cad') : '-'" :symbol="tokenName(token).symbol" :image="tokenImage(token)"/>
 
         </div>
       </div>
