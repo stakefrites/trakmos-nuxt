@@ -16,7 +16,7 @@ export default defineConfig({
           500: '#76efd3'
         },
         primary: {
-          400: '#0c1454',
+          400: '#1D2147',
           500: '#070c38',
           600: '#0b1342'
         }
