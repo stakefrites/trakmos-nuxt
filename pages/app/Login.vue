@@ -14,7 +14,7 @@ const BASE_URL = 'https://staging.api.trakmos.app'
 
 onBeforeMount(() => {
   if (id.value) {
-    router.push('/dashboard')
+    router.push('/app/dashboard')
   }
 })
 
@@ -38,7 +38,7 @@ const login = async () => {
   } else {
     console.log(data.value)
     id.value = data.value.user
-    router.push('/dashboard')
+    router.push('/app/dashboard')
   }
 }
 
@@ -64,7 +64,7 @@ const signup = async () => {
       errorMessage.value = data.value.message
     } else {
       id.value = data.value.user
-      router.push('/onboarding')
+      router.push('/app/onboarding')
     }
   }
 }

@@ -120,7 +120,7 @@ const createAccount = async () => {
         console.log("An error occured");
     } else {
         console.log(data);
-        router.push("/dashboard");
+        router.push("/app/dashboard");
     }
 }
 
@@ -233,8 +233,5 @@ const createAccount = async () => {
     color: #070C38;
 }
 
-.white--text >>> label {
-    color: white;
-}
 
 </style>
