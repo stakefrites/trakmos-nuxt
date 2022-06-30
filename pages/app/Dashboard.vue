@@ -4,11 +4,10 @@ import { AdjustmentsIcon, ChartPieIcon, CurrencyDollarIcon, FingerPrintIcon } fr
 import { useStore } from "@/store/store";
 
 const store = useStore()
-const { id, user, tokens } = storeToRefs(store)
+const { id, user, tokens, account } = storeToRefs(store)
 const router = useRouter()
 const selectedAccount = ref(null)
 
-const account = reactive({})
 
 const wallet = computed(()=> {
   if (selectedAccount.value != null) {
@@ -82,12 +81,12 @@ const formatCurrency = (value, currency) => {
 </script>
 
 <template>
-  <NuxtLayout name="home">
-    <div class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-lg pa-10">
+  <NuxtLayout name="side">
+    <div class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-lg pa-10  gap-4">
       <div class="md:col-span-4 justify-self-end my-4">
         <select v-model="selectedAccount" class="pr-10">
           <option :value="null">All</option>
-          <option v-for="acc in account.value.accounts" :value="acc.name">{{ acc.name }}</option>
+          <option v-for="acc in account.accounts" :value="acc.name">{{ acc.name }}</option>
         </select>
       </div>
       <div class="md:col-span-3 font-brandonlight md:text-6xl <md:text-4xl">
@@ -99,24 +98,6 @@ const formatCurrency = (value, currency) => {
           <PriceCard v-for="token in wallet.total" :name="tokenName(token).network" :price="formatCurrency(tokenValue(token), 'cad')  ? formatCurrency(tokenValue(token), 'cad') : '-'" :symbol="tokenName(token).symbol" :image="tokenImage(token)"/>
 
         </div>
-      </div>
-      <div class="font-brandon uppercase text-3xl my-6 md:col-span-4">Action items</div>
-
-      <div class="flex flex-col content-center align-center border-1 border-white rounded-lg pa-3 ma-3 bg-white">
-        <FingerPrintIcon class="w-4rem text-[#070c38]"/>
-        <div class="font-brandonlight font-weight-bold mt-6 mb-4 py-2 px-3 bg-[#76efd3] text--[#070c38] rounded-md border-1 border-[#070c38]">Accounts</div>
-      </div>
-      <div class="flex flex-col content-center align-center border-1 border-white rounded-lg pa-3 ma-3 bg-white">
-        <AdjustmentsIcon class="w-4rem text-[#070c38]"/>
-        <div class="font-brandonlight font-weight-bold mt-6 mb-4 py-2 px-3 bg-[#76efd3] text--[#070c38] rounded-md border-1 border-[#070c38]">Settings</div>
-      </div>
-      <div class="flex flex-col content-center align-center border-1 border-white rounded-lg pa-3 ma-3 bg-white">
-        <ChartPieIcon class="w-4rem text-[#070c38]"/>
-        <div class="font-brandonlight font-weight-bold mt-6 mb-4 py-2 px-3 bg-[#76efd3] text--[#070c38] rounded-md border-1 border-[#070c38]">Historical</div>
-      </div>
-      <div class="flex flex-col content-center align-center border-1 border-white rounded-lg pa-3 ma-3 bg-white">
-        <CurrencyDollarIcon class="w-4rem text-[#070c38]"/>
-        <div class="font-brandonlight font-weight-bold mt-6 mb-4 py-2 px-3 bg-[#76efd3] text--[#070c38] rounded-md border-1 border-[#070c38]">Currency</div>
       </div>
     </div>
   </NuxtLayout>
