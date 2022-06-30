@@ -93,7 +93,7 @@ const getBech32Address = async (index) => {
 <template>
   <NuxtLayout name="side">
     <div v-if="isCreateAccountModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center align-center">
-      <div class="text-white bg-primary-600 rounded-lg pa-10 flex-col min-w-30rem">
+      <div class="text-white bg-primary-600 rounded-lg pa-10 flex-col md:min-w-30rem <md:min-w-20rem">
         <div class="flex justify-space-between">
           <div class="font-brandon uppercase">add account</div>
           <XIcon @click="toggleModal" class="w-1rem cursor-pointer"/>
@@ -111,7 +111,7 @@ const getBech32Address = async (index) => {
       </div>
     </div>
     <div v-if="isEditAccountModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center align-center">
-      <div class="text-white bg-primary-600 rounded-lg pa-10 flex-col min-w-30rem">
+      <div class="text-white bg-primary-600 rounded-lg pa-10 flex-col  md:min-w-30rem <md:min-w-20rem">
         <div class="flex justify-space-between">
           <div class="font-brandon text-2xl uppercase">edit account</div>
           <XIcon @click="toggleEditModal" class="w-1rem cursor-pointer"/>
@@ -126,19 +126,19 @@ const getBech32Address = async (index) => {
         </div>
       </div>
     </div>
-    <div class="grid md:grid-cols-3 text-white <md:grid-cols-1 bg-primary-600 rounded-lg px-14 py-20  gap-4">
-      <div class="md:col-span-4 font-brandon uppercase md:text-6xl <md:text-4xl">
+    <div class="grid md:grid-cols-3 text-white <md:grid-cols-1 bg-primary-600 rounded-lg md:px-14 <md:px-8 <md:py-10 md:py-20  gap-4">
+      <div class="md:col-span-4 font-brandon uppercase md:text-6xl <md:text-2xl">
         Settings
       </div>
-      <div class="md:col-span-4 font-brandon uppercase md:text-4xl mt-10 <md:text-2xl">
+      <div class="md:col-span-4 font-brandon uppercase md:text-4xl mt-10 <md:text-xl">
         Accounts
       </div>
         <div v-for="acc in account.accounts" class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-space-around align-center">
           <div class="flex flex-row space-x-5">
             <div class="flex flex-col">
-              <div class="font-brandon text-xl uppercase">{{ acc.name }}</div>
-              <div class="font-brandonlight -mt-1">{{ acc.bech32Address }}</div>
-              <div class="font-brandonlight -mt-1">{{ acc.evmosAddress }}</div>
+              <div class="font-brandon text-xl uppercase <md:text-lg">{{ acc.name }}</div>
+              <div class="font-brandonlight <md:text-0.5rem md:-mt-1">{{ acc.bech32Address }}</div>
+              <div class="font-brandonlight <md:text-0.5rem md:-mt-1">{{ acc.evmosAddress }}</div>
             </div>
           </div>
 
@@ -147,13 +147,11 @@ const getBech32Address = async (index) => {
       <div class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-space-around align-center">
         <div class="flex flex-row space-x-5">
           <div class="flex flex-col">
-            <div class="font-brandon text-xl uppercase">Add another account</div>
-            <div class="font-brandonlight -mt-1"></div>
-            <div class="font-brandonlight -mt-1"></div>
+            <div class="font-brandon text-xl <md:text-sm uppercase">Add another account</div>
           </div>
         </div>
 
-        <PlusCircleIcon @click="toggleModal" class="w-3rem cursor-pointer"/>
+        <PlusCircleIcon @click="toggleModal" class="w-3rem <md:w-2rem cursor-pointer"/>
       </div>
 
     </div>
