@@ -34,7 +34,7 @@ const toggleMenu = () => {
         <!-- Primary Navbar items -->
         <div class="hidden md:flex items-center space-x-1 divide-x-2 divide-accent-500">
           <router-link
-            to="/login"
+            to="/app/login"
             class="py-4 px-2 text-accent-500 font-brandonlight text-2xl font-bold hover:text-[#76efd3] transition duration-300"
           >App</router-link>
           <router-link
