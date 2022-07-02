@@ -1,4 +1,5 @@
 <script setup>
+const router = useRouter()
   const props = defineProps({
     symbol: {
       type: String
@@ -22,7 +23,7 @@
         <img alt="logo" class="w-10 h-10" :src="image"/>
         <div class="flex flex-col">
           <div class="font-brandon text-xl uppercase">{{props.symbol}}</div>
-          <div class="font-brandonlight capitalize -mt-1">{{ props.name }}</div>
+          <div @click="router.push(`/networks/${props.name}`)" class="font-brandonlight capitalize -mt-1 hover:text-accent-500 cursor-pointer">{{ props.name }}</div>
         </div>
       </div>
       <div class="font-brandon text-lg">{{props.price}}</div>
