@@ -13,7 +13,6 @@ const { id, user, tokens, account } = storeToRefs(store)
 const name = router.currentRoute.value.params.name;
 const { data, error, loading } = await useFetch(`https://validators.cosmos.directory/${name}`);
 
-console.log(data)
 
 
 </script>
