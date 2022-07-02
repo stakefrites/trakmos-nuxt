@@ -82,7 +82,7 @@ const signup = async () => {
           <input v-model="password" class="bg-[#76efd3] font-brandonlight" type="password"/>
           <div v-if="loginType === 'signup'" class="flex flex-col">
             <div class="mt-6 text-white text-lg font-brandonlight">Confirm Password</div>
-            <input v-model="password" class="bg-[#76efd3] font-brandonlight" type="password"/>
+            <input v-model="confirmPassword" class="bg-[#76efd3] font-brandonlight" type="password"/>
           </div>
           <div v-if="loginType === 'login'" class="mt-8 align-self-end flex flex-col justify-end">
             <MyButton @click="login" class="align-self-end" primary text="Login"/>
