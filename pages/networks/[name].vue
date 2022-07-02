@@ -7,7 +7,6 @@ const router = useRouter();
 const store = useStore()
 const { id, user, tokens, account } = storeToRefs(store)
 
-
 const formatCurrency = (value, currency) => {
   const locale = currency === 'eur' ? 'fr-FR' : 'en-US'
   const formatter = new Intl.NumberFormat(locale, {
@@ -22,8 +21,6 @@ const tokenValue = (t) => {
   const found = tokens.value.find((to) => to.base === t)
   return found && found.price ? formatCurrency(found.price.cad, "cad")  :  "-"
 
-
-
 }
 
 
@@ -33,7 +30,6 @@ const name = router.currentRoute.value.params.name;
 const { data, error, loading } = await useFetch(`https://chains.cosmos.directory/${name}/chain`);
 const { data: assets, error: assetsError, loading: assetsLoading } = await useFetch(`https://chains.cosmos.directory/${name}/assetlist`);
 const { data: validators, error: validatorsError, loading: validatorsLoading } = await useFetch(` https://validators.cosmos.directory/chains/${name}`);
-console.log(validators.value.validators, validatorsError)
 const persistent = computed(()=>{
   const seeds = data.value.peers.seeds.map(p => `${p.id}@${p.address}`).join(',')
   const seeds_t = data.value.peers.seeds.map(p => `${p.id.slice(0,4)}...${p.id.slice(-4)}...@${p.address.slice(0,6)}`).join(',')
