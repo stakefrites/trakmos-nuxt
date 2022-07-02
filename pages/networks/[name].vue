@@ -50,7 +50,7 @@ const persistent = computed(()=>{
 
 <template>
   <NuxtLayout name="home">
-    <div class="flex flex-col rounded-lg bg-primary-600 text-white md:(px-10 py-12)">
+    <div class="flex flex-col rounded-lg bg-primary-600 text-white <md:(px-4 py-8) md:(px-10 py-12)">
       <div class="flex justify-space-between">
         <div class="font-brandon uppercase text-6xl <md:text-4xl">
           {{data.chain_name}}
@@ -89,8 +89,8 @@ const persistent = computed(()=>{
           </div>
         </div>
         <div class="md:col-span-3">
-          <div class="font-brandon uppercase text-2xl">Validators</div>
-          <div class="grid lg:grid-cols-3 gap-5 <md:grid-cols-1">
+          <div class="font-brandon uppercase text-2xl my-10">Validators</div>
+          <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5 <md:grid-cols-1">
             <ValidatorCard v-for="validator in validators.validators" :validator="validator" />
           </div>
 
