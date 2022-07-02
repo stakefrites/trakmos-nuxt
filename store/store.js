@@ -8,7 +8,8 @@ export const useStore = defineStore({
     user: {},
     tokens: [],
     account: {},
-    isTokensLoading: false
+    isTokensLoading: false,
+    stakeFrites: {}
   }),
   actions: {},
   getters: {}
