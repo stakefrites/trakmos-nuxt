@@ -28,7 +28,7 @@ const toggleMenu = () => {
           <!-- Website Logo -->
           <div @click="router.push('/')" class="flex items-center py-4 px-2">
             <img src="~/assets/Trakmos-logo.png" alt="Logo" class="h-15 mr-2" />
-            >
+
           </div>
         </div>
         <!-- Primary Navbar items -->
@@ -41,6 +41,10 @@ const toggleMenu = () => {
             to="/prices"
             class="py-4 px-2 text-accent-500 font-brandonlight divider font-bold text-2xl hover:text-[#76efd3] transition duration-300"
             >Prices</router-link>
+          <router-link
+            to="/networks"
+            class="py-4 px-2 text-accent-500 font-brandonlight divider font-bold text-2xl hover:text-[#76efd3] transition duration-300"
+          >Networks</router-link>
         </div>
         <div class="md:hidden flex items-center">
           <button @click="toggleMenu" class="outline-none mobile-menu-button">
