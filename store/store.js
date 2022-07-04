@@ -10,7 +10,8 @@ export const useStore = defineStore({
     account: {},
     isTokensLoading: false,
     stakeFrites: {},
-    baseUrl: 'http://localhost:3001',
+    // baseUrl: 'http://localhost:3001',
+    baseUrl: 'https://staging.api.trakmos.app',
     currentKey: ''
   }),
   actions: {},
