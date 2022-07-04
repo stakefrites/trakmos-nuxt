@@ -1,19 +1,11 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store/store";
-
 const router = useRouter();
 const store = useStore()
 const { id, user, tokens, account } = storeToRefs(store)
-
-
-
-
-
 const name = router.currentRoute.value.params.name;
 const { data, error, loading } = await useFetch(`https://validators.cosmos.directory/${name}`);
-
-
 
 </script>
 
