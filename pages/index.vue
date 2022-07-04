@@ -4,9 +4,6 @@ const router = useRouter()
 
 const n = useNuxtApp();
 
-onMounted(() => {
-  console.log(n.$lightweightCharts)
-})
 
 </script>
 
