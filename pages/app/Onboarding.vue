@@ -1,17 +1,16 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useStore } from "@/store/store"
+import AccountConfig from "../../components/Onboarding/AccountConfig";
 
 const store = useStore();
 const router = useRouter();
-const { id } = storeToRefs(store);
+const { id, currentKey } = storeToRefs(store);
 
-
-const BASE_URL = 'https://staging.api.trakmos.app'
+const BASE_URL = process.env.BASE_URL
 const NETWORKS = ["cosmoshub", "juno", "evmos"];
 
 const accounts = reactive({
-    currentKey: "",
     currency: "",
     accounts: [{
         name: "",
@@ -27,7 +26,7 @@ const alreadySet = ref(false)
 const isLoading = ref(false);
 
 const isAlreadySet = () => { 
-    const isIt = accounts.accounts.findIndex(acc => acc.keyUsed === accounts.currentKey);
+    const isIt = accounts.accounts.findIndex(acc => acc.keyUsed === currentKey.value);
     if (!isIt) {
         alreadySet.value = false;
         return false
@@ -40,7 +39,7 @@ const isAlreadySet = () => {
 const setCurrentKey = async () => { 
     await window.keplr.enable(EVMOS_CHAIN_ID);
     const key = await window.keplr.getKey(COSMOS_CHAIN_ID);
-    accounts.currentKey = key.name;
+    currentKey.value = key.name;
     isAlreadySet();
 }
 
@@ -50,28 +49,8 @@ const EVMOS_CHAIN_ID = "evmos_9001-2";
 const COSMOS_CHAIN_ID = "cosmoshub-4";
 
 
-onMounted(async () => {
-    await setCurrentKey();
-});
 
-const getEvmosAddress = async (index) => {
-  window.keplr.enable(EVMOS_CHAIN_ID);
-  const key = await window.keplr.getKey(EVMOS_CHAIN_ID);
-    const address =  key.bech32Address;
-    accounts.accounts[index].evmosAddress = address;
-    accounts.accounts[index].keyUsed = key.name;
-  isAlreadySet();
-}
 
-const getBech32Address = async (index) => {
-    window.keplr.enable(COSMOS_CHAIN_ID);
-    const key = await window.keplr.getKey(COSMOS_CHAIN_ID);
-    console.log(key)
-    const address = key.bech32Address;
-    accounts.accounts[index].bech32Address = address;
-    accounts.accounts[index].keyUsed = key.name;
-   isAlreadySet();
-}
 
 
 
@@ -100,9 +79,6 @@ const page2 = () => {
     }
 }
 
-const remove = (i) => {
-    accounts.accounts.splice(i, 1);
-}
 
 const createAccount = async () => {
     isLoading.value = true;
@@ -130,6 +106,7 @@ const createAccount = async () => {
 
 
 
+
 </script>
 
 <template>
@@ -137,33 +114,16 @@ const createAccount = async () => {
       <div class="bg-primary-600 px-14 py-10 rounded-xl flex flex-col text-white">
         <div class="flex flex-row justify-space-between">
           <div class="font-brandon uppercase text-6xl mb-10">Set your account</div>
-          <div class="flex flex-row">
-            <div class="font-brandonlight mr-4">Keplr:</div>
-            <div class="bg-accent-500 px-2 font-brandon uppercase rounded-lg text-xl h-max text-primary-500">{{accounts.currentKey}}</div>
-          </div>
         </div>
         <div v-if="page ===1">
           <p class="font-brandonlight text-lg">First, we will configure your different accounts.</p>
-          <p class="font-brandonlight text-lg">To do that, we will need to get an address from Keplr and your evmos address from keplr.</p>
-          <div class="mt-10" v-for="(account,i) in accounts.accounts">
-            <div class="flex justify-space-between">
-              <div class="font-brandon text-2xl">Account {{i+ 1}}</div>
-              <div v-if="i >0" @click="remove(i)" class="font-brandonlight text-xl cursor-pointer">remove</div>
-            </div>
-
-            <div class="mt-6 text-white text-lg font-brandonlight">Name this account</div>
-            <input type="text" v-model="account.name" class="bg-accent-500 rounded-lg" />
-            <div class="mt-6 text-white text-lg font-brandonlight">Cosmos Address</div>
-            <input type="text" v-model="account.bech32Address" v-if="account.bech32Address" class="bg-accent-500 rounded-lg w-full" />
-            <MyButton @click="getBech32Address(i)" v-else small text="Get Bech32 Address"></MyButton>
-            <div class="mt-6 text-white text-lg font-brandonlight">Evmos Address</div>
-            <input type="text" v-model="account.evmosAddress" v-if="account.evmosAddress" class="bg-accent-500 rounded-lg w-full" />
-            <MyButton @click="getEvmosAddress(i)" v-else small text="Get Evmos Address"></MyButton>
+          <p class="font-brandonlight text-lg">To do that, we will need to get an address from Keplr and your evmos address.</p>
+          <div v-if="!currentKey" class="flex flex-col mt-6 space-y-2 font-brandonlight text-xl">
+            <div class="underline-offset-1 underline">Would you love to speed up the process with KEPLR?</div>
+            <div @click="setCurrentKey" class="cursor-pointer py-2 px-4 rounded-lg bg-accent-500 text-primary-500 uppercase font-brandon w-max hover:(bg-white text-primary-500)">Connect with Keplr</div>
           </div>
-          <div class="flex flex-row space-x-2 mt-10">
-            <MyButton @click="page2" small primary text="Next"></MyButton>
-            <MyButton @click="addOne" small text="Add another account"></MyButton>
-          </div>
+          <AccountConfig :currentKey="currentKey"/>
+          <MyButton @click="page2" small primary text="Next"></MyButton>
         </div>
         <div v-if="page ===2">
           <div class="my-10 font-brandonlight text-xl font-weight-bold">Select your currency</div>
