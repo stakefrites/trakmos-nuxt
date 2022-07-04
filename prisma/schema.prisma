@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  //provider = "postgresql"
+  //url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  phone     String?
+  password  String?
+  createdAt DateTime @default(now())
+  account   Account?
+}
+
+model Account {
+  id         Int         @id @default(autoincrement())
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int         @unique
+  createdAt  DateTime    @default(now())
+  portfolios Portfolio[]
+}
+
+model Portfolio {
+  id        Int      @id @default(autoincrement())
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId Int      @unique
+  createdAt DateTime @default(now())
+  wallets   Wallet[]
+}
+
+model Wallet {
+  id          Int        @id @default(autoincrement())
+  portfolio   Portfolio  @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId Int        @unique
+  createdAt   DateTime   @default(now())
+  holdings    Position[]
+}
+
+model Position {
+  id        Int      @id @default(autoincrement())
+  wallet    Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  walletId  Int      @unique
+  createdAt DateTime @default(now())
+  token     Token    @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  tokenId   Int      @unique
+  amount    Int
+  type      String
+}
+
+model Token {
+  id        Int        @id @default(autoincrement())
+  name      String
+  symbol    String
+  decimals  Int
+  createdAt DateTime   @default(now())
+  Position  Position[]
+}
