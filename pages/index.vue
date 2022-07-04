@@ -5,6 +5,8 @@ const router = useRouter()
 const n = useNuxtApp();
 
 
+
+
 </script>
 
 <template>
