@@ -3,12 +3,11 @@ import { storeToRefs } from 'pinia'
 import { useStore } from '~/store/store'
 const store = useStore()
 
-const { tokens, isTokensLoading, stakeFrites } = storeToRefs(store)
+const { tokens, isTokensLoading, stakeFrites, baseUrl} = storeToRefs(store)
 
-const BASE_URL = 'https://staging.api.trakmos.app'
 
 const { data: tokensData, pending } = await useFetch(`/tokens`, {
-  baseURL: BASE_URL
+  baseURL: baseUrl.value,
 })
 isTokensLoading.value = pending
 tokens.value = tokensData.value

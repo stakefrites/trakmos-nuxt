@@ -9,8 +9,8 @@ const errorMessage = ref(null)
 const router = useRouter()
 const store = useStore()
 
-const { id, user } = storeToRefs(store)
-const BASE_URL = 'https://staging.api.trakmos.app'
+const { id, user, baseUrl } = storeToRefs(store)
+
 
 onBeforeMount(() => {
   if (id.value) {
@@ -23,7 +23,7 @@ const login = async () => {
   errorMessage.value = null
   const { data } = await useFetch('/trakmos/login', {
     method: 'POST',
-    baseURL: BASE_URL,
+    baseURL: baseUrl.value,
     body: {
       user: {
         username: username.value,
@@ -50,7 +50,7 @@ const signup = async () => {
   } else {
     const { data, error } = await useFetch('/trakmos/signup', {
       method: 'POST',
-      baseURL: BASE_URL,
+      baseURL: baseUrl.value,
       body: {
         user: {
           username: username.value,
@@ -74,8 +74,9 @@ const signup = async () => {
   <NuxtLayout name="home">
     <div class="grid md:grid-cols-3">
       <div class="flex flex-col align-center md:col-span-2">
-        <div class="border-[#76efd3] border-10 rounded-lg px-8 py-8 flex flex-col <md:min-w-full min-w-40rem">
+        <div class="bg-primary-600 rounded-lg px-8 py-8 flex flex-col <md:min-w-full min-w-40rem">
           <div class="text-4xl font-brandonlight font-weight-bold text-white">{{loginType === "login" ? "Login": "Sign Up"}}</div>
+          <div v-if="errorMessage" class="text-2xl font-brandonlight font-weight-bold text-red">{{errorMessage}}</div>
           <div class="mt-6 text-white text-lg font-brandonlight">Username</div>
           <input v-model="username" class="bg-[#76efd3] font-brandonlight" type="text"/>
           <div class="mt-6 text-white text-lg font-brandonlight">Password</div>
@@ -86,11 +87,11 @@ const signup = async () => {
           </div>
           <div v-if="loginType === 'login'" class="mt-8 align-self-end flex flex-col justify-end">
             <MyButton @click="login" class="align-self-end" primary text="Login"/>
-            <a @click="loginType = 'signup'" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">Don't have an account ?</a>
+            <a @click="loginType = 'signup';errorMessage= null" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">Don't have an account ?</a>
           </div>
           <div v-if="loginType === 'signup'" class="mt-8 align-self-end flex flex-col justify-end">
             <MyButton @click="signup" class="align-self-end" primary text="Sign Up"/>
-            <a @click="loginType = 'login'" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">You already have an account?</a>
+            <a @click="loginType = 'login' ;errorMessage= null" class=" cursor-pointer font-brandonlight text-[#76efd3] text-end mt-2 underline decoration-current decoration-0 underline-offset-1">You already have an account?</a>
           </div>
         </div>
 

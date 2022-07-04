@@ -9,7 +9,9 @@ export const useStore = defineStore({
     tokens: [],
     account: {},
     isTokensLoading: false,
-    stakeFrites: {}
+    stakeFrites: {},
+    baseUrl: 'http://localhost:3001',
+    currentKey: ''
   }),
   actions: {},
   getters: {}
