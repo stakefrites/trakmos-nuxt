@@ -11,10 +11,10 @@ export default defineNuxtConfig({
     titleTemplate: '%s - Trakmos',
     meta: []
   },
-  modules: ['nuxt-windicss', '@vueuse/nuxt'],
-  buildModules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
+  modules: ['nuxt-windicss', '@vueuse/nuxt','@pinia/nuxt', '@nuxtjs/eslint-module'],
+  //buildModules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
   build: {
-    transpile: ['vuetify']
+    transpile: ['vuetify', '@heroicons/vue']
   },
   target: 'server',
   windicss: {
