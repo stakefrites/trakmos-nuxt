@@ -124,7 +124,7 @@ const formatCurrency = (value, currency) => {
       <p class="text-md font-brandonlight">An error occured while fetching account data.</p>
       <MyButton @click="router.push('/app/login')" class="align-self-end mt-10" small text="Back Home"/>
     </div>
-    <div v-if="!error" class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-xl pa-10  gap-4">
+    <div v-if="!error" class="grid md:grid-cols-4 text-white <md:grid-cols-1 bg-primary-600 rounded-xl p-10 gap-4">
       <div class="md:col-span-1 md:col-start-4 md:row-start-1 justify-self-end my-4">
         <select v-model="selectedAccount" class="pr-10">
           <option :value="null">All</option>
@@ -150,7 +150,7 @@ const formatCurrency = (value, currency) => {
       <div class="py-10 md:col-span-4 flex flex-col justify-center">
         <div class="font-brandon uppercase text-3xl my-6">Holdings</div>
         <div class="grid  md:grid-cols-4 gap-4">
-            <div v-if="wallet" v-for="token in wallet.total" class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-space-around align-center">
+            <div v-if="wallet" v-for="token in wallet.total" class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-around align-center">
               <div class="flex flex-row space-x-5">
                 <img alt="logo" class="w-10 h-10" :src="tokenImage(token)"/>
                 <div class="flex flex-col">

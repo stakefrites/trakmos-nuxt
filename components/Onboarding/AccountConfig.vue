@@ -86,7 +86,7 @@ const validate = (i) => {
         <div class="w-1.5rem" v-else></div>
       </div>
       <div v-if="isKeyUsed && !account.isDone"  class="font-brandonlight mb-4">The keplr account named {{currentKey}} has already been used. Please change your Keplr account to make sure you don't track the same account twice</div>
-      <div class="flex lg:flex-row <lg:flex-col justify-space-between">
+      <div class="flex lg:flex-row <lg:flex-col justify-between">
         <div class="font-brandonlight text-4xl pr-8 flex flex-row align-start space-x-5">
 
           <div class="font-brandonlight text-4xl">{{i + 1}}</div>
@@ -112,7 +112,7 @@ const validate = (i) => {
           </div>
           <div v-else class="text-white">This keplr account doesn't have a evmos address</div>
         </div>
-        <div class="flex flex-col w-40rem justify-space-between ">
+        <div class="flex flex-col w-40rem justify-between ">
           <div  class="flex flex-row font-brandon text-2xl uppercase <lg:my-4 lg:justify-end space-x-4 align-center">
             <div class="">{{account.keyUsed ? "key used" : ""}}</div>
             <div v-if="account.keyUsed" class="py-1 px-3 bg-accent-500 rounded-lg text-primary-500">{{account.keyUsed}}</div>

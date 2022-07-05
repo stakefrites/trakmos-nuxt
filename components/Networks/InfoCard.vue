@@ -12,7 +12,7 @@ const {persistent, data} = defineProps({
 </script>
 
 <template>
-  <div class="font-brandon bg-primary-500 w-full  pa-10 self-start rounded-lg">
+  <div class="font-brandon bg-primary-500 w-full  p-10 self-start rounded-lg">
     <NetworksInfoCardItem :data="data.chain_id" label="Chain ID"/>
     <NetworksInfoCardItem :data="data.slip44" label="Coin Type"/>
     <NetworksInfoCardItem :data="data.daemon_name" label="Daemon Name"/>

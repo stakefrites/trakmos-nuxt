@@ -18,7 +18,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-space-around align-center">
+  <div class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-around items-center">
       <div class="flex flex-row space-x-5">
         <img alt="logo" class="w-10 h-10" :src="image"/>
         <div class="flex flex-col">

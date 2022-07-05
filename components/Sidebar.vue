@@ -15,7 +15,7 @@ const logOut = () => {
 </script>
 
 <template>
-<div class="h-screen sticky pa-4 bg-primary-600 flex flex-col <md:flex-row <md:max-h-6rem shadow-xl shadow-primary-500 justify-space-between align-center text-white rounded-br-xl rounded-tr-xl">
+<div class="h-screen p-4 bg-primary-600 flex flex-col <md:flex-row <md:max-h-6rem shadow-xl shadow-primary-500 justify-between align-center text-white rounded-br-xl rounded-tr-xl">
   <div class="flex">
     <img @click="router.push('/app/dashboard')" src="~/assets/sigle_stake-frites.png" alt="Logo" class="h-15 w-15" />
   </div>

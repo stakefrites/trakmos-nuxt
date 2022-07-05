@@ -19,7 +19,7 @@ const { data, error, loading } = await useFetch(`https://validators.cosmos.direc
 
       <div class="space-y-6">
         <div class="font-brandon text-2xl uppercase">Chains they validate</div>
-        <div v-for="chain in data.validator.chains" class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-space-around align-center">
+        <div v-for="chain in data.validator.chains" class="bg-primary-400 shadow-xl rounded-xl py-5 px-3 max-w-30rem text-white flex-row flex justify-around align-center">
           <div class="flex flex-row space-x-5">
             <div class="flex flex-col">
               <div class="font-brandon text-xl uppercase">{{chain.name}}</div>

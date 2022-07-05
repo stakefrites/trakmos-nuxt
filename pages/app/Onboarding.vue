@@ -112,7 +112,7 @@ const createAccount = async () => {
 <template>
   <NuxtLayout name="home">
       <div class="bg-primary-600 px-14 py-10 rounded-xl flex flex-col text-white">
-        <div class="flex flex-row justify-space-between">
+        <div class="flex flex-row justify-between">
           <div class="font-brandon uppercase text-6xl mb-10">Set your account</div>
         </div>
         <div v-if="page ===1">
