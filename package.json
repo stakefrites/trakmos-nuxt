@@ -29,6 +29,7 @@
     "@prisma/client": "^4.0.0",
     "pinia": "^2.0.14",
     "trpc-nuxt": "^0.2.2",
-    "windicss": "^3.5.5"
+    "windicss": "^3.5.5",
+    "zod": "^3.17.3"
   }
 }
