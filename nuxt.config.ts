@@ -12,11 +12,9 @@ export default defineNuxtConfig({
     meta: []
   },
   modules: ['nuxt-windicss', '@vueuse/nuxt','@pinia/nuxt', '@nuxtjs/eslint-module'],
-  //buildModules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
   build: {
     transpile: ['vuetify', '@heroicons/vue']
   },
-  target: 'server',
   windicss: {
     analyze: true
   },
