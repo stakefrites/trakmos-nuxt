@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-hero-four-point-stars bg-repeat-round bg-[#070c38] min-h-screen">
+  <div class="bg-hero-circuit-board bg-repeat bg-[#070c38] h-screen overflow-x-hidden">
     <AppBar />
-    <div class="md:(container mx-auto) px-4 mt-6 h-max">
+    <div class="md:(container mx-auto) px-4 py-10 h-full">
       <slot />
     </div>
   </div>

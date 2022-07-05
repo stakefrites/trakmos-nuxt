@@ -1,10 +1,10 @@
 <template>
-  <v-app>
+  <div class="bg-hero-circuit-board bg-repeat bg-[#070c38] h-screen overflow-x-hidden">
     <AppBar />
-    <v-main>
-      <v-container>
-        <slot />
-      </v-container>
-    </v-main>
-  </v-app>
+    <div class="md:(container mx-auto) px-4 py-10  h-full">
+      <slot />
+    </div>
+  </div>
 </template>
+
+<style></style>

@@ -2,11 +2,7 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  css: [
-    'vuetify/lib/styles/main.sass',
-    'mdi/css/materialdesignicons.min.css',
-    '~/assets/fonts/global.css',
-  ],
+  css: ['~/assets/fonts/global.css'],
   typescript: {
     typeCheck: false
   },
@@ -15,12 +11,10 @@ export default defineNuxtConfig({
     titleTemplate: '%s - Trakmos',
     meta: []
   },
-  modules: ['nuxt-windicss'],
-  buildModules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
+  modules: ['nuxt-windicss', '@vueuse/nuxt','@pinia/nuxt', '@nuxtjs/eslint-module'],
   build: {
-    transpile: ['vuetify']
+    transpile: ['vuetify', '@heroicons/vue']
   },
-  target: 'server',
   windicss: {
     analyze: true
   },

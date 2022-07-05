@@ -1,5 +1,5 @@
 [build]
-command= "yarn build"
+command= "yarn netlify"
 publish= "dist"
 functions=".output/server"
 

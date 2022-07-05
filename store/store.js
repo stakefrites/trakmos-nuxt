@@ -7,7 +7,12 @@ export const useStore = defineStore({
     id: null,
     user: {},
     tokens: [],
-    isTokensLoading: false
+    account: {},
+    isTokensLoading: false,
+    stakeFrites: {},
+    //baseUrl: 'http://localhost:3001',
+    baseUrl: 'https://staging.api.trakmos.app',
+    currentKey: ''
   }),
   actions: {},
   getters: {}

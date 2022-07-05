@@ -11,6 +11,13 @@ const logOut = () => {
   id.value = null
   router.push('/')
 }
+
+const isMobileMenuActive = ref(false)
+
+const toggleMenu = () => {
+  console.log("Alo", isMobileMenuActive.value)
+  isMobileMenuActive.value ? isMobileMenuActive.value = false : isMobileMenuActive.value = true
+}
 </script>
 
 <template>
@@ -21,24 +28,28 @@ const logOut = () => {
           <!-- Website Logo -->
           <div @click="router.push('/')" class="flex items-center py-4 px-2">
             <img src="~/assets/Trakmos-logo.png" alt="Logo" class="h-15 mr-2" />
-            >
+
           </div>
         </div>
         <!-- Primary Navbar items -->
-        <div class="hidden md:flex items-center space-x-1">
+        <div class="hidden md:flex items-center space-x-1 divide-x-2 divide-accent-500">
           <router-link
-            to="/login"
-            class="py-4 px-2 text-gray-500 font-brandonlight text-xl font-bold hover:text-[#76efd3] transition duration-300"
+            to="/app/login"
+            class="py-4 px-2 text-accent-500 font-brandonlight text-2xl font-bold hover:text-[#76efd3] transition duration-300"
           >App</router-link>
           <router-link
             to="/prices"
-            class="py-4 px-2 text-gray-500 font-brandonlight font-bold text-xl hover:text-[#76efd3] transition duration-300"
+            class="py-4 px-2 text-accent-500 font-brandonlight divider font-bold text-2xl hover:text-[#76efd3] transition duration-300"
             >Prices</router-link>
+          <router-link
+            to="/networks"
+            class="py-4 px-2 text-accent-500 font-brandonlight divider font-bold text-2xl hover:text-[#76efd3] transition duration-300"
+          >Networks</router-link>
         </div>
         <div class="md:hidden flex items-center">
-          <button class="outline-none mobile-menu-button">
+          <button @click="toggleMenu" class="outline-none mobile-menu-button">
             <svg
-              class="w-6 h-6 text-gray-500"
+              class="w-6 h-6 text-accent-500 text-2xl"
               x-show="!showMenu"
               fill="none"
               stroke-linecap="round"
@@ -51,23 +62,19 @@ const logOut = () => {
             </svg>
           </button>
         </div>
-        <div class="hidden mobile-menu">
+        <div v-if="isMobileMenuActive" class="mobile-menu">
           <ul class="">
             <li class="active">
-              <a href="index.html" class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a>
+              <router-link
+                to="/login"
+                class="py-4 px-2 text-black block font-brandonlight text-xl bg-accent-500 font-bold hover:text-[#76efd3] transition duration-300"
+              >App</router-link>
             </li>
             <li>
-              <a href="#services" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300"
-                >Services</a
-              >
-            </li>
-            <li>
-              <a href="#about" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a>
-            </li>
-            <li>
-              <a href="#contact" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300"
-                >Contact Us</a
-              >
+              <router-link
+                to="/prices"
+                class="py-4 px-2 text-accent-500 block font-brandonlight font-bold text-2xl hover:text-[#76efd3] transition duration-300"
+              >Prices</router-link>
             </li>
           </ul>
         </div>

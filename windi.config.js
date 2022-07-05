@@ -1,5 +1,4 @@
 import { defineConfig } from 'windicss/helpers'
-const { transform } = require('windicss/helpers')
 
 export default defineConfig({
   theme: {
@@ -12,6 +11,14 @@ export default defineConfig({
       colors: {
         stake: {
           100: '#f48c8a'
+        },
+        accent: {
+          500: '#76efd3'
+        },
+        primary: {
+          400: '#1D2147',
+          500: '#070c38',
+          600: '#0b1342'
         }
       }
     }
