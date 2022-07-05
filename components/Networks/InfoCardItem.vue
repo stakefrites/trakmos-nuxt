@@ -12,7 +12,7 @@ const {data} = defineProps({
 </script>
 
 <template>
-  <div class="flex justify-space-between my-2">
+  <div class="flex justify-between my-2">
     <div>{{label}}:</div>
     <div class="font-brandonlight">{{data}}</div>
 

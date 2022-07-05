@@ -10,7 +10,7 @@ const {validator} = defineProps({
 
 <template>
   <div  class="bg-primary-400 shadow-xl rounded-xl py-4 px-10 text-white flex flex-col space-x-4 space-y-4">
-    <div class="flex flex-row justify-space-between align-center">
+    <div class="flex flex-row justify-between align-center">
       <img v-if="validator.keybase_image" alt="logo" class="w-10 h-10 rounded-circle" :src="validator.keybase_image"/>
       <div v-else class="font-brandon uppercase rounded-circle w-10 h-10 bg-white flex text-primary-500 justify-center align-center">{{validator.moniker.slice(0,1)}}</div>
       <div class="flex flex-col justify-between">

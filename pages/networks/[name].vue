@@ -51,14 +51,14 @@ const persistent = computed(()=>{
 <template>
   <NuxtLayout name="home">
     <div class="flex flex-col rounded-lg bg-primary-600 text-white <md:(px-4 py-8) md:(px-10 py-12)">
-      <div class="flex justify-space-between">
+      <div class="flex justify-between">
         <div class="font-brandon uppercase text-6xl <md:text-4xl">
           {{data.chain_name}}
         </div>
         <StatusOnlineIcon v-if="data.status === 'live'" class=" w-3rem text-accent-500"/>
         <StatusOfflineIcon v-else class=" w-3rem text-red-300"/>
       </div>
-      <div class="grid lg:grid-cols-3 <lg:grid-cols-1 justify-space-between my-10 gap-x-10">
+      <div class="grid lg:grid-cols-3 <lg:grid-cols-1 justify-between my-10 gap-x-10">
         <div class="md:col-span-3 flex flex-start mb-4 space-x-4">
           <a v-if="data.explorers.length > 0" target="__blank__" :href="data.explorers[1].url" >
             <PresentationChartBarIcon class="cursor-pointer w-2rem -mt-6 hover:text-accent-500"/>

@@ -23,7 +23,7 @@ const n = useNuxtApp();
           Monitor all your stake’s temperature in one place
         </h2>
       </div>
-      <div class="flex md:flex-row <md:flex-col-reverse <md:flex-col justify-space-between md:pb-30">
+      <div class="flex md:flex-row <md:flex-col-reverse <md:flex-col justify-between md:pb-30">
         <div class="flex self-center space-x-8 h-max <md:mt-15">
           <MyButton :primary="true" text="Trak Now" :handler="()=>router.push('/app/login')"/>
           <MyButton :primary="false" text="Prices" :handler="()=>router.push('/prices')" />

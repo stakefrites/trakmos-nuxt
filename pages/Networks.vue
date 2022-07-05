@@ -25,7 +25,7 @@ const chainsWeValidate = computed(()=>{
   <NuxtLayout name="home">
     <div class="font-brandon text-white uppercase text-4xl py-10 ">Networks we validate</div>
     <div class="grid grid-cols-3 gap-3 <md:grid-cols-1">
-      <div v-for="chain in data.chains.filter(c=>chainsWeValidate.includes(c.name))" :class="`bg-primary-400 shadow-xl rounded-xl py-5 px-6 max-w-30rem text-white flex-row flex justify-space-between align-center ${chainsWeValidate.includes(chain.name) ? 'border-3 border-stake-100': ''}`">
+      <div v-for="chain in data.chains.filter(c=>chainsWeValidate.includes(c.name))" :class="`bg-primary-400 shadow-xl rounded-xl py-5 px-6 max-w-30rem text-white flex-row flex justify-between items-center ${chainsWeValidate.includes(chain.name) ? 'border-3 border-stake-100': ''}`">
         <div class="flex flex-row space-x-5">
           <img alt="logo" class="w-10 h-10" :src="chain.image"/>
           <div class="flex flex-col">
@@ -45,7 +45,7 @@ const chainsWeValidate = computed(()=>{
     </div>
     <div class="font-brandon text-white uppercase text-4xl py-10 ">All Networks</div>
     <div class="grid grid-cols-3 gap-3 <md:grid-cols-1">
-      <div v-for="chain in data.chains" :class="`bg-primary-400 shadow-xl rounded-xl py-5 px-6 max-w-30rem text-white flex-row flex justify-space-between align-center ${chainsWeValidate.includes(chain.name) ? 'border-3 border-stake-100': ''}`">
+      <div v-for="chain in data.chains" :class="`bg-primary-400 shadow-xl rounded-xl py-5 px-6 max-w-30rem text-white flex-row flex justify-between align-center ${chainsWeValidate.includes(chain.name) ? 'border-3 border-stake-100': ''}`">
         <div class="flex flex-row space-x-5">
           <img alt="logo" class="w-10 h-10" :src="chain.image"/>
           <div class="flex flex-col">
