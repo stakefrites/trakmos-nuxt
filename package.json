@@ -2,11 +2,14 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "netlify": "npx prisma generate --schema=./server/prisma/schema.prisma && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "netlify": "npx prisma generate --schema=./server/prisma/schema.prisma && nuxt build",
+    "prisma:generate": "npx prisma generate --schema=./server/prisma/schema.prisma",
+    "prisma:studio" : "npx prisma studio --schema=./server/prisma/schema.prisma",
+    "prisma:migrate": "npx prisma migrate dev --name firstmigration --schema=./server/prisma/schema.prisma"
   },
   "devDependencies": {
     "@nuxtjs/eslint-module": "^3.1.0",
