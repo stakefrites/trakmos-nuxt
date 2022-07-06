@@ -4,7 +4,6 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   css: ['~/assets/fonts/global.css'],
   typescript: {
-    typeCheck: false,
     strict: true
   },
   meta: {
@@ -18,10 +17,6 @@ export default defineNuxtConfig({
   },
   windicss: {
     analyze: true
-  },
-  trpc: {
-    baseURL: 'http://localhost:3000', // defaults to http://localhost:3000
-    endpoint: '/trpc', // defaults to /trpc
   },
   vite: {
     define: {

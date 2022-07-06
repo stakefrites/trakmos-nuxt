@@ -1,10 +1,11 @@
-<script setup>
-import MyButton from '../components/MyButton'
+<script setup lang="ts">
+import MyButton from '@/components/MyButton.vue'
 const router = useRouter()
+const client = useClient()
 
-const n = useNuxtApp();
+const {data,error} = await useAsyncQuery(["hello"]);
 
-
+console.log(data,error.value)
 
 
 </script>
@@ -12,6 +13,7 @@ const n = useNuxtApp();
 <template>
   <NuxtLayout name="home">
     <section class="flex flex-col h-max justify-center">
+      <div class="bg-primary-600 rounded-lg p-10 text-white text-2xl" >{{data}} {{error}}</div>
       <div>
         <h1 class="font-brandon uppercase text-8xl <md:text-4xl <md:max-w-30rem max-w-70rem text-stake-100">
           Multi-wallet
