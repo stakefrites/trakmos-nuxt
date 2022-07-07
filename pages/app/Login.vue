@@ -1,13 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useStore } from '~/store/store'
+import {useAsyncQuery, useClient} from "#imports";
 const loginType = ref("login")
-const username = ref('jean')
+const username = ref('jean123')
 const password = ref('myPassword')
 const confirmPassword = ref('myPassword')
 const errorMessage = ref(null)
 const router = useRouter()
 const store = useStore()
+const client = useClient()
 
 const { id, user, baseUrl } = storeToRefs(store)
 
@@ -20,52 +22,34 @@ onBeforeMount(() => {
 
 
 const login = async () => {
-  errorMessage.value = null
-  const { data } = await useFetch('/trakmos/login', {
-    method: 'POST',
-    baseURL: baseUrl.value,
-    body: {
-      user: {
-        username: username.value,
-        password: password.value
-      }
-    }
-  })
-  console.log('data', data.value)
-  if (data.value.status === 'error') {
-    console.log(`An error has occured: ${data.value.message}`)
-    errorMessage.value = data.value.message
-  } else {
-    console.log(data.value)
-    id.value = data.value.user
+  try {
+    const login = await client.query('auth.login', {
+      username: username.value,
+      password: password.value,
+    })
+
+    id.value = login.id
     router.push('/app/dashboard')
+  } catch (e) {
+    console.error(e)
+    errorMessage.value= JSON.parse(e.message)
   }
+
 }
 
 const signup = async () => {
-  errorMessage.value = null
-  const isPasswordMatching = password.value === confirmPassword.value
-  if (!isPasswordMatching) {
-    errorMessage.value = 'Passwords do not match'
-  } else {
-    const { data, error } = await useFetch('/trakmos/signup', {
-      method: 'POST',
-      baseURL: baseUrl.value,
-      body: {
-        user: {
-          username: username.value,
-          password: password.value
-        }
-      }
+  try {
+    const login = await client.mutation('auth.signup', {
+      username: username.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value
     })
-    console.log('data', data.value)
-    if (error.value || data.value.status === 'error') {
-      console.log(`An error has occured: ${data.value.message}`)
-      errorMessage.value = data.value.message
-    } else {
-      id.value = data.value.user
-      router.push('/app/onboarding')
-    }
+    console.log(login)
+    id.value = login.id
+    router.push('/app/onboarding')
+  } catch (e) {
+    console.error(e)
+    errorMessage.value= JSON.parse(e.message)
   }
 }
 </script>

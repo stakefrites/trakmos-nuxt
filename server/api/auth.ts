@@ -4,7 +4,7 @@ const {PrismaClient} = PrismaPkg
 const client = new PrismaClient()
 
 export default defineEventHandler(async () => {
-  const accounts = await client.user.findMany({})
+  const accounts = await client.user.findMany()
   return {
     accounts
   }

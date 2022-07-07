@@ -4,14 +4,14 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   css: ['~/assets/fonts/global.css'],
   typescript: {
-    typeCheck: false
+    strict: true
   },
   meta: {
     viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
     titleTemplate: '%s - Trakmos',
     meta: []
   },
-  modules: ['nuxt-windicss', '@vueuse/nuxt','@pinia/nuxt', '@nuxtjs/eslint-module'],
+  modules: ['nuxt-windicss', '@vueuse/nuxt','@pinia/nuxt', '@nuxtjs/eslint-module','trpc-nuxt'],
   build: {
     transpile: ['vuetify', '@heroicons/vue']
   },

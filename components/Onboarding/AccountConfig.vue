@@ -3,21 +3,15 @@
 import {  XCircleIcon, SparklesIcon } from "@heroicons/vue/solid";
 const EVMOS_CHAIN_ID = "evmos_9001-2";
 const COSMOS_CHAIN_ID = "cosmoshub-4";
-const accounts = reactive({
-  accounts: [{
-    name: "",
-    bech32Address: "",
-    evmosAddress: "",
-    keyUsed: "",
-    isDone: false,
-    hasEvmos: true
-  }]
-})
 
-const {currentKey} = defineProps({
+
+const {accounts, currentKey} = defineProps({
   currentKey: {
     type: String,
   },
+  accounts: {
+    type: Array,
+  }
 })
 
 const getEvmosAddress = async (index) => {
@@ -32,7 +26,7 @@ const getEvmosAddress = async (index) => {
 
 const getBech32Address = async (index) => {
   const key = await window.keplr.getKey(COSMOS_CHAIN_ID);
-  accounts.accounts[index].bech32Address = key.bech32Address;
+  accounts.accounts[index].cosmosAddress = key.bech32Address;
   accounts.accounts[index].keyUsed = key.name;
 }
 
@@ -43,7 +37,7 @@ const addOne = () => {
     name: "",
     keyUsed: "",
     bech32Address: "",
-    evmosAddress: "",
+    cosmosAddress: "",
     hasEvmos: true,
     isDone: false,
   });
@@ -64,7 +58,7 @@ const remove = (i) => {
 const feedback = ref(false);
 
 const validate = (i) => {
-  if (accounts.accounts[i].name && accounts.accounts[i].bech32Address) {
+  if (accounts.accounts[i].name && accounts.accounts[i].cosmosAddress) {
     accounts.accounts[i].isDone = true;
     feedback.value= false;
   } else {
@@ -97,9 +91,9 @@ const validate = (i) => {
           <div  class="flex flex-col">
             <div class="text-white text-lg font-brandonlight">Cosmos Address</div>
             <div class="relative">
-              <input  type="text" v-model="account.bech32Address"  class="bg-accent-500 rounded-lg w-full mb-3" />
+              <input  type="text" v-model="account.cosmosAddress"  class="bg-accent-500 rounded-lg w-full mb-3" />
               <SparklesIcon @click="getBech32Address(i)" v-if="!account.bech32Address" class="w-1rem position-absolute text-primary-500 top-3 right-4 cursor-pointer"/>
-              <XCircleIcon v-else @click="account.bech32Address = '' ;account.keyUsed= ''" class="w-1rem position-absolute text-primary-500 top-3 right-4 cursor-pointer"/>
+              <XCircleIcon v-else @click="account.cosmosAddress = '' ;account.keyUsed= ''" class="w-1rem position-absolute text-primary-500 top-3 right-4 cursor-pointer"/>
             </div>
           </div>
           <div v-if="account.hasEvmos " class="flex flex-col">

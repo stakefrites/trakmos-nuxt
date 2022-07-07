@@ -1,9 +1,6 @@
-<script setup>
-import MyButton from '../components/MyButton'
+<script setup lang="ts">
+import MyButton from '@/components/MyButton.vue'
 const router = useRouter()
-
-const n = useNuxtApp();
-
 
 
 

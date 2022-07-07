@@ -14,7 +14,7 @@ datasource db {
 
 model User {
   id        Int      @id @default(sequence())
-  email     String   @unique
+  username  String   @unique
   name      String?
   phone     String?
   password  String?
@@ -23,17 +23,46 @@ model User {
 }
 
 model Account {
-  id         Int         @id @default(sequence())
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     Int         @unique
-  createdAt  DateTime    @default(now())
-  portfolios Portfolio[]
+  id            Int               @id @default(sequence())
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int               @unique
+  createdAt     DateTime          @default(now())
+  currency      Currency          @default(usd)
+  portfolios    Portfolio[]
+  accountConfig PortfolioConfig[]
+}
+
+enum Currency {
+  usd
+  cad
+  eur
+}
+
+
+model PortfolioConfigAddress {
+  id        Int      @id @default(sequence())
+  address   String
+  coinType Int    @default(118)
+  path     String  @default("m/44'/0'/0'/0/0")
+  portfolio PortfolioConfig @relation(fields: [portfolioConfigId], references: [id], onDelete: Cascade)
+  portfolioConfigId Int
+
+}
+
+model PortfolioConfig {
+  id            Int     @id @default(sequence())
+  account       Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId     Int
+  name          String
+  evmosAddress  String?
+  cosmosAddress String
+  addresses     PortfolioConfigAddress[]
 }
 
 model Portfolio {
   id        Int      @id @default(sequence())
   account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  accountId Int      @unique
+  accountId Int
   createdAt DateTime @default(now())
   wallets   Wallet[]
 }
@@ -41,20 +70,39 @@ model Portfolio {
 model Wallet {
   id          Int        @id @default(sequence())
   portfolio   Portfolio  @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
-  portfolioId Int        @unique
+  portfolioId Int
   createdAt   DateTime   @default(now())
   holdings    Position[]
 }
 
+
+
 model Position {
-  id        Int      @id @default(sequence())
-  wallet    Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  walletId  Int      @unique
-  createdAt DateTime @default(now())
-  token     Token    @relation(fields: [tokenId], references: [id], onDelete: Cascade)
-  tokenId   Int      @unique
+  id        Int          @id @default(sequence())
+  wallet    Wallet       @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  walletId  Int
+  createdAt DateTime     @default(now())
+  token     Token        @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  tokenId   Int
   amount    Int
-  type      String
+  type      PositionType
+}
+
+enum PositionType {
+  staked
+  rewards
+  balance
+}
+
+model TokenPrice {
+  id        Int      @id @default(sequence())
+  token     Token    @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  tokenId   Int
+  fetched DateTime @default(now())
+  price     Float
+  usd    Float
+    cad    Float
+    eur    Float
 }
 
 model Token {
@@ -62,6 +110,19 @@ model Token {
   name      String
   symbol    String
   decimals  Int
-  createdAt DateTime   @default(now())
+  network   Network    @relation(fields: [networkId], references: [id], onDelete: Cascade)
+  networkId Int
+  coinGeckoId String?
   Position  Position[]
+  Prices   TokenPrice[]
+
+}
+
+model Network {
+  id        Int      @id @default(sequence())
+  name      String
+  createdAt DateTime @default(now())
+  tokens    Token[]
+  supported Boolean @default(false)
+  path String  @default("cosmoshub")
 }
